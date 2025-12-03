@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE RootStep>
+<RootStep id="_0" indentation="0" linelength="160" name="root" version="9.0.6">
+<include>qfs.qft</include>
+<TestSet id="_1" interpreter="groovy" name="Reporting Listener">
+<TestCase id="_3Vg" interpreter="groovy" name="Add Reporting Listener">
+<ProcedureCall id="_3Vh" procedure="de.dschweie.neoload.reporting.addReportingListener">
+<variable name="strNeoloadController">localhost</variable>
+<variable name="iPort">7400</variable>
+<variable name="strAPIKey">${default:NEOLOADAPIKEY:}</variable>
+</ProcedureCall>
+</TestCase>
+<TestCase id="_3Vi" interpreter="groovy" name="Remove Reporting Listener">
+<ProcedureCall id="_3Vk" procedure="de.dschweie.neoload.reporting.removeReportingListener"/>
+</TestCase>
+</TestSet>
+<PackageRoot id="_3">
+<Package id="_E" name="de">
+<Package id="_D" name="dschweie">
+<Package id="_F" name="common">
+<Package id="_h" name="environment">
+<Procedure id="script_common-environment-getInstanceId" name="getInstanceId" uid="_i">
+<ServerScriptStep id="_j" interpreter="groovy">
+<code>if(!rc.getGlobals().containsKey("INSTANCEID"))
+{
+  rc.setLocal("getInstanceId", rc.getStr("qftest","runid"))
+}
+else
+{
+  rc.setLocal("getInstanceId", rc.getStr("INSTANCEID"))
+}</code>
+</ServerScriptStep>
+<ReturnStep id="_k" retval="$(getInstanceId)"/>
+</Procedure>
+</Package>
+</Package>
+<Package id="_C" name="neoload">
+<Package id="_B" name="reporting">
+<Dependency forcedcleanup="true" id="_3VM" name="ensureReportingActivated">
+<SetupSequence id="_3VN" name="optionales Registrieren des Listeners">
+<ServerScriptStep id="_3VO" interpreter="groovy">
+<code>try
+{
+  rc.setLocal("bListenerExists", null != __NEOLOADDATAEXCHANGELISTENER__ )
+}
+catch (Exception e) 
+{ //  Listener existiert nicht! 
+  rc.setLocal("bListenerExists", false)
+}</code>
+</ServerScriptStep>
+<IfSequence id="_3VP" name="Ist der Listener noch zu registrieren?" test="$[not $(bListenerExists)]">
+<BasicSequence id="_3VU" name="Listener eigenverantwortlich starten">
+<ProcedureCall id="_3VQ" procedure="de.dschweie.neoload.reporting.addReportingListener"/>
+<SetGlobalStep id="_3VR" varname="depNeoLoadDataExchangeListenerRegistered">
+<default>0</default>
+</SetGlobalStep>
+</BasicSequence>
+<ElseSequence id="_3VS" name="Signal für automatisches Beenden bearbeiten">
+<IfSequence id="_3VV" name="Wurde der Listener durch die Abhängigkeit gestartet?" test="-1 &lt; ${default:depNeoLoadDataExchangeListenerRegistered:-1} ">
+<BasicSequence id="_3VW" name="Signal wird um 1 erhöht">
+<SetGlobalStep id="_3VT" varname="depNeoLoadDataExchangeListenerRegistered">
+<default>$[$(depNeoLoadDataExchangeListenerRegistered) + 1]</default>
+</SetGlobalStep>
+</BasicSequence>
+<ElseSequence id="_3VX" name="Signal wird auf Wert gesetzt, der dafür sorgt, dass Listener durch Abhängigkeit nicht beendet wird.">
+<SetGlobalStep id="_3VY" varname="depNeoLoadDataExchangeListenerRegistered">
+<default>-1</default>
+</SetGlobalStep>
+</ElseSequence>
+</IfSequence>
+</ElseSequence>
+</IfSequence>
+</SetupSequence>
+<CleanupSequence id="_3VZ" name="optionales Entfernen des Listeners">
+<IfSequence id="_3Va" name="Wird Listener von Abhängigkeit gesteuert?" test="$[ -1 &lt; $(depNeoLoadDataExchangeListenerRegistered)]">
+<IfSequence id="_3Vb" name="Ist ReportingListener aufgrund des Signals zu stoppen?" test="$[0 == $(depNeoLoadDataExchangeListenerRegistered)]">
+<BasicSequence id="_3Vc" name="ReportingListener entfernen">
+<ProcedureCall id="_3Vd" procedure="de.dschweie.neoload.reporting.removeReportingListener"/>
+</BasicSequence>
+<ElseSequence id="_3Ve" name="Signal für automatisches Beenden bearbeiten">
+<SetGlobalStep id="_3Vf" varname="depNeoLoadDataExchangeListenerRegistered">
+<default>$[$(depNeoLoadDataExchangeListenerRegistered) - 1]</default>
+</SetGlobalStep>
+</ElseSequence>
+</IfSequence>
+</IfSequence>
+</CleanupSequence>
+</Dependency>
+<Procedure id="_6" name="addReportingListener">
+<variable name="strNeoloadController">localhost</variable>
+<variable name="iPort">7400</variable>
+<variable name="strAPIKey">${default:NEOLOADAPIKEY:}</variable>
+<ServerScriptStep id="_x" interpreter="groovy" name="script_neoload_reporting_addReportingListener">
+<code>import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Vector;
+
+import de.qfs.apps.qftest.extensions.qftest.AbstractTestRunListener;
+import de.qfs.apps.qftest.extensions.qftest.TestRunEvent;
+import de.qfs.apps.qftest.extensions.qftest.TestSuiteNode;
+import de.qfs.apps.qftest.run.AbstractRunContext;
+import de.qfs.apps.qftest.shared.exceptions.TestException;
+import de.qfs.apps.qftest.step.AbstractStep;
+
+import com.neotys.rest.dataexchange.client.DataExchangeAPIClient;
+import com.neotys.rest.dataexchange.client.DataExchangeAPIClientFactory;
+import com.neotys.rest.dataexchange.model.ContextBuilder;
+import com.neotys.rest.dataexchange.model.EntryBuilder;
+import com.neotys.rest.dataexchange.model.Entry;
+import com.neotys.rest.dataexchange.model.Status;
+import com.neotys.rest.dataexchange.model.Status.State;
+import com.neotys.rest.error.NeotysAPIException;
+
+//  Prüfung, ob bereits ein Listener des Typs registriert ist.
+try
+{
+  if(null != __NEOLOADDATAEXCHANGELISTENER__)
+  { //  In diesem Fall wurde bereits ein Listner registriert, der zu löschen ist.
+    rc.removeTestRunListener(__NEOLOADDATAEXCHANGELISTENER__);
+    __NEOLOADDATAEXCHANGELISTENER__ = null;
+  }
+}
+catch(Exception e) {  /* Keine Aktion erforderlich, da dieser Block beim ersten Aufruf erwartet wird. */ }
+
+//  Initialisierung und Registrierung einer neuen Instanz des Listeners
+__NEOLOADDATAEXCHANGELISTENER__ = new NeoloadDataExchangeListener(rc.context, rc.getStr("strNeoloadController"), rc.getInt("iPort"), rc.getStr("strAPIKey")); 
+rc.addTestRunListener(__NEOLOADDATAEXCHANGELISTENER__);
+
+
+public class NeoloadDataExchangeListener extends AbstractTestRunListener
+{
+  /// \brief    Klassenattribut mit regulärem Ausdruck, der zur Identifikation der relevanten Schritte verwendet wird.
+  public static  final String REGEX_OBSERVEDNODES =  "(Test((Set)|(Case)|(Step)))|(ProcedureCall)|(((Basic)|(TimeConstrained))Sequence)";
+
+  /// \brief    In dem Attribut wird der RunContext von QF-Test gehalten.
+  protected AbstractRunContext rc;
+
+  /// \brief    In dem Attribut wird die URL zu dem Dienst von NeoLoad gehalten.
+  protected URL xUrl = null;
+
+  /// \brief    In dem Attribut wird ein optionaler API Key gespeichert.
+  private String strAPIKey;
+
+  /// \brief    In dem Attribut wird der NeoLoad Client gehalten, der mit dem Webservice kommuniziert.
+  private DataExchangeAPIClient xClient = null;
+
+  /// \brief    Beschreibung für die Art der Hardware zu Statistikzwecken.
+  private String strHardware = "Workstation";
+
+  /// \brief    InstanzId, die NeoLoad zu einer Datenübergabe hinterlegen kann.
+  private String strInstanceId = "unbekannt";
+
+  /// \brief    Beschreibung des Ortes der Ausführung zu Statistikzwecken.
+  private String strLocation = "";
+
+  /// \brief    Information des Betriebsystems zu Statistikzwecken.
+  private String strOS = System.getProperty("os.name", "unknown");
+
+  /// \brief    Information auf die Software, aus der das externe Datum stammt.
+  private String strSoftware = "QF-Test";
+
+  /// \brief    Interne Struktur zur Verwaltung der Objekte, zu denen Messwerte übertragen werden sollen.
+  protected HashMap&lt;String,AbstractExternalData&gt; mapQualifiedNames;
+
+  /// \brief    Instanzvariable, durch die definiert wird, zu welcher Art von Knoten Messwerte übertragen werden sollen.
+  private String regexObservedNodes;
+
+  /// \brief    Standardkonstruktor der Klasse
+  public NeoloadDataExchangeListener(AbstractRunContext rc, String neoloadHost, int neoloadPort, String apiKey)
+  {
+    this.rc = rc;
+    this.strAPIKey = apiKey;
+    this.mapQualifiedNames = new HashMap&lt;&gt;();
+    this.regexObservedNodes = NeoloadDataExchangeListener.REGEX_OBSERVEDNODES.toString();
+    if(null != this.rc)
+    { //  Umgebungsparameter für den Context werden gesetzt
+      try
+      {
+        this.strInstanceId = this.rc.callProcedure("de.dschweie.common.environment.getInstanceId").toString();
+        this.strLocation =  this.rc.lookup("env", "computername", false).toString();
+        this.strOS = System.getProperty("os.name", "unknown");
+        this.strSoftware = "QF-Test ".concat(rc.lookup("qftest", "version", false).toString());
+      }
+      catch (TestException e)
+      {
+        this.rc.logError("AbstractNeoloadDataExchangeListener.AbstractNeoloadDataExchangeListener(AbstractRunContext rc, String neoloadHost, int neoloadPort) =[0]=&gt; ".concat(e.toString()));
+      }
+    }
+    if(null != neoloadHost)
+    {
+      try
+      {
+        this.xUrl = new URL("http", neoloadHost, neoloadPort, "/DataExchange/v1/Service.svc/");
+      }
+      catch (MalformedURLException e)
+      {
+        if(null != this.rc)
+          this.rc.logError("AbstractNeoloadDataExchangeListener.AbstractNeoloadDataExchangeListener(AbstractRunContext rc, String neoloadHost, int neoloadPort) =[1]=&gt; ".concat(e.toString()));
+        this.xUrl = null;
+      }
+      catch(Exception f)
+      {
+        if(null != this.rc)
+          this.rc.logError("AbstractNeoloadDataExchangeListener.AbstractNeoloadDataExchangeListener(AbstractRunContext rc, String neoloadHost, int neoloadPort) =[2]=&gt; ".concat(f.toString()));
+      }
+    }
+  }
+
+  /**
+   *  \brief    Getter-Methode, die püft, ob der Listener die Voraussetzungen zur Kommunikation mit NeoLoad erfüllt.
+   */
+  public boolean isReady()
+  {
+    return ((null!=this.xUrl) &amp;&amp; (null!=this.getClient()));
+  }
+
+  /**
+   *  \brief    Getter-Methode für die Instanz, über die mit NeoLoad kommuniziert wird.
+   */
+  protected DataExchangeAPIClient getClient()
+  {
+    final ContextBuilder cb = new ContextBuilder();
+
+    if(null == this.xClient)
+    {
+      try
+      {
+        String strScript = "";
+
+        try
+        {
+          strScript = this.rc.lookup("NEOLOAD-USERPATH", false).toString();
+        }
+        catch (Exception e)
+        {
+          strScript = this.rc.getCurrentTestCase().getQualifiedName(false);
+        }
+
+        cb.hardware(this.strHardware.toString())
+          .instanceId(this.strInstanceId.toString())
+          .location(this.strLocation.toString())
+          .os(this.strOS.toString())
+          .script(strScript.toString())
+          .software(this.strSoftware.toString());
+
+        this.xClient = DataExchangeAPIClientFactory.newClient(this.xUrl.toString() , cb.build() , this.strAPIKey );
+      }
+      catch (NeotysAPIException e)
+      {
+        if(null != this.rc)
+          this.rc.logError("AbstractNeoloadDataExchangeListener.getClient() =[0]=&gt; ".concat(e.toString()).concat("\nthis.xUrl: ").concat(null==this.xUrl?"NULL":this.xUrl.toString()));
+        this.xClient = null;
+      }
+      catch(NullPointerException n)
+      {
+        //  Der Block fängt NullPointerExceptions ab, die in der Vorbereitung vorkommen können.
+      }
+      catch(Exception f)
+      {
+        if(null != this.rc)
+           this.rc.logError("AbstractNeoloadDataExchangeListener.getClient() =[1]=&gt; ".concat(f.toString()));
+      }
+   }
+
+    return this.xClient;
+  }
+
+  /**
+   *  \brief    Setter-Methode für das Instantattribut strInstanceId
+   */
+  protected void setInstanceId(String id)
+  {
+    if(!this.strInstanceId.equalsIgnoreCase(id))
+    {
+      this.strInstanceId = id;
+      this.xClient = null;
+    }
+  }
+
+  /**
+   *  \brief    Setter-Methode für den regulären Ausdruck, der festlegt, welche Knoten überwacht werden sollen.
+   */
+  public void setObservedNodeRegEx(String observedNodes)
+  {
+    this.regexObservedNodes = observedNodes.toString();
+  }
+
+  /**
+   *  \brief    Getter-Methode für den regulären Ausdruck, der festlegt, welche Knoten überwacht werden sollen.
+   */
+  public String getObservedNodeRegEx()
+  {
+    return this.regexObservedNodes.toString();
+  }
+
+  /**
+   *  \brief    Die Methode setzt zu Beginn eines neuen Testlauf die InstanceId
+   */
+  @Override
+  public void runStarted(TestRunEvent event)
+  {
+    try
+    {
+      this.setInstanceId(this.rc.lookup("qftest", "runid", false).toString());
+    } catch (TestException e)
+    {
+      if(null != this.rc)
+        this.rc.logError("AbstractNeoloadDataExchangeListener.runStarted(TestRunEvent event) =[0]=&gt; ".concat(e.toString()));
+    }
+    catch(NullPointerException n)
+    {
+      //  Der Block fängt NullPointerExceptions ab, die in der Vorbereitung vorkommen können.
+    }
+    catch(Exception f)
+    {
+      if(null != this.rc)
+        this.rc.logError("AbstractNeoloadDataExchangeListener.runStarted(TestRunEvent event) =[1]=&gt; ".concat(f.toString()));
+    }
+  }
+
+  /**
+   *  \brief    Die Methode nimmt den Knoten in die Überwachung auf, falls er den Anforderungen entspricht.
+   */
+  @Override
+  public void nodeEntered(TestRunEvent event)
+  {
+    if(     ( event.getNode().getType().matches( this.getObservedNodeRegEx() ) )
+        &amp;&amp;  ( !this.mapQualifiedNames.containsKey( event.getNode().getId() )   )  )
+    { //  In diesem Fall ist die ID zu erfassen
+      switch(event.getNode().getType())
+      {
+        case "TestCase"       : this.mapQualifiedNames.put( event.getNode().getId(),
+                                                            new TestcaseData(this.rc.getCurrentTestCase().getQualifiedName(false))
+                                                          );
+                                break;
+        case "TestSet"        : this.mapQualifiedNames.put( event.getNode().getId(),
+                                                            new TestsetData(this.rc.getCurrentTestSet().getQualifiedName(false))
+                                                          );
+                                break;
+        case "ProcedureCall"  : this.mapQualifiedNames.put( event.getNode().getId(),
+                                                            new ProcedureData(event.getNode().getName())
+                                                          );
+                                                break;
+        default               : this.mapQualifiedNames.put( event.getNode().getId(),
+                                                            new SequenceData(event)
+                                                          );
+                                break;
+      }
+    }
+  }
+
+  /**
+   *  \brief    Diese Methode wird von QF-Test aufgerufen, wenn es zu einem Fehlerfall im Ablauf kommt.
+   */
+  @Override
+  public void problemOccurred(TestRunEvent event)
+  {
+    String astrTextCode[] = [ "QF-Test.OK",
+                              "QF-Test.WARNING",
+                              "QF-Test.ERROR",
+                              "QF-Test.EXCEPTION",
+                              "QF-Test.SKIPPED",
+                              "QF-Test.NOT_IMPLEMENTED" ];
+    try
+    { //  Ereignis wird in den Testfällen und Testfallsätzen festgehalten
+      AbstractStep step = this.rc.getCurrentTestCase();
+      while( null != step )
+      {
+        if(this.mapQualifiedNames.containsKey(step.getId()))
+        {
+          AbstractExternalData data = this.mapQualifiedNames.get(step.getId());
+          switch(event.getState())
+          {
+            case TestRunEvent.STATE_ERROR     : data.signalError(); break;
+            case TestRunEvent.STATE_EXCEPTION : data.signalException(); break;
+            case TestRunEvent.STATE_WARNING   : data.signalWarning(); break;
+          }
+        }
+        step = step.getParent();
+      }
+
+      //  Ereignis wird an DataExchangeAPI kommuniziert
+      Status xStatus = (new com.neotys.rest.dataexchange.model.StatusBuilder()).code(astrTextCode[event.getState()]).message(event.getMessage()).state(State.FAIL).build();
+
+      switch(event.getState())
+      {
+        case TestRunEvent.STATE_EXCEPTION : this.getClient().addEntry((new EntryBuilder(  Arrays.asList(  "QF-Test/Incidents/"
+                                                                                                          .concat("Exception").concat("/")
+                                                                                                          .concat(this.rc.getCurrentTestCase().getName()).concat("/")
+                                                                                                          .concat(event.getNode().getTreeName()).split("/") ),
+                                                                                          event.getTimestamp()  )  ).unit("exception")
+                                                                                                                    .value(Double.valueOf(1.0))
+                                                                                                                    .url("")
+                                                                                                                    .status(xStatus)
+                                                                                                                    .build());
+                                            break;
+        case TestRunEvent.STATE_ERROR     : this.getClient().addEntry((new EntryBuilder(  Arrays.asList(  "QF-Test/Incidents/"
+                                                                                                          .concat("Error").concat("/")
+                                                                                                          .concat(this.rc.getCurrentTestCase().getName()).concat("/")
+                                                                                                          .concat(event.getNode().getTreeName()).split("/") ),
+                                                                                          event.getTimestamp()  )  ).unit("error")
+                                                                                                                    .value(Double.valueOf(1.0))
+                                                                                                                    .url("")
+                                                                                                                    .status(xStatus)
+                                                                                                                    .build()  );
+                                            break;
+        case TestRunEvent.STATE_WARNING   : /*
+                                            this.getClient().addEntry((new EntryBuilder(  Arrays.asList(  "QF-Test/Incidents/"
+                                                                                                          .concat("Warning").concat("/")
+                                                                                                          .concat(this.rc.getCurrentTestCase().getName()).concat("/")
+                                                                                                          .concat(event.getNode().getTreeName()).split("/") ),
+                                                                                          event.getTimestamp()  )  ).unit("warnings")
+                                                                                                                    .value(Double.valueOf(Integer.valueOf(event.getWarnings()).doubleValue()))
+                                                                                                                    .url("")
+                                                                                                                    .status(xStatus)
+                                                                                                                    .build());
+                                             */
+                                            break;
+        default                           : break;
+      }
+
+    } catch (GeneralSecurityException | IOException | URISyntaxException | NeotysAPIException e)
+    {
+      if(null != this.rc)
+        this.rc.logError("AbstractNeoloadDataExchangeListener.problemOccurred(TestRunEvent event) =[0]=&gt; ".concat(e.toString()));
+    }
+    catch(Exception f)
+    {
+      if(null != this.rc)
+        this.rc.logError("AbstractNeoloadDataExchangeListener.problemOccurred(TestRunEvent event) =[1]=&gt; ".concat(f.toString()));
+    }
+
+  }
+
+  /**
+   *  \brief    Diese Methode meldet, wenn erforderlich, die Dauer für die Ausführung des Knotens
+   */
+  @Override
+  public void nodeExited(TestRunEvent event)
+  {
+    try
+    {
+      if(     ( event.getNode().getType().matches( this.getObservedNodeRegEx() )  )
+          &amp;&amp;  ( this.mapQualifiedNames.containsKey(event.getNode().getId())       ) )
+      { // nur wenn der Knoten bekannt ist und der Typ übereinstimmt, sollen Daten übermittelt werden.
+        Status xStatus = (new com.neotys.rest.dataexchange.model.StatusBuilder()).code("0").message("").state(State.PASS).build();
+        try
+        {
+          this.getClient().addEntries(this.mapQualifiedNames.get(event.getNode().getId()).getEntries(event, xStatus, getRealtimeInS(), getDurationInS()));
+        } catch (GeneralSecurityException | IOException | URISyntaxException | NeotysAPIException e)
+        {
+          this.rc.logError("AbstractNeoloadDataExchangeListener.nodeExited(TestRunEvent event) =[0]=&gt; ".concat(e.toString()));
+        }
+        this.mapQualifiedNames.get(event.getNode().getId()).resetAllSignals();
+      }
+    }
+    catch(NullPointerException n)
+    {
+      //  Der Block fängt NullPointerExceptions ab, die in der Vorbereitung vorkommen können.
+    }
+    catch (Exception e)
+    {
+      if(null != this.rc)
+        this.rc.logError("AbstractNeoloadDataExchangeListener.nodeExited(TestRunEvent event) =[1]=&gt; ".concat(e.toString()));
+    }
+  }
+
+  protected double getDurationInS()
+  {
+    return this.rc.getCurrentLog().getDuration() / 1000.0;
+  }
+  
+  protected double getRealtimeInS()
+  {
+    return this.rc.getCurrentLog().getRealtime() / 1000.0;
+  }
+}
+
+public abstract class AbstractExternalData
+{
+  public static final int DURATION    = 0;
+  public static final int REALTIME    = 1;
+  public static final int STATE       = 2;
+  public static final int EXCEPTIONS  = 3;
+  public static final int ERRORS      = 4;
+  public static final int WARNINGS    = 5;
+
+  protected List&lt;String&gt; listExternalDataPath = null;
+
+  private int iErrors;
+  private int iExceptions;
+  private int iWarnings;
+
+  public AbstractExternalData(String name)
+  {
+    this(Arrays.asList(name.split("\\x2e")));
+  }
+
+  public AbstractExternalData(List&lt;String&gt; list)
+  {
+    this.listExternalDataPath = new Vector&lt;&gt;();
+    for(int i=0; i &lt; list.size(); ++i)
+      this.listExternalDataPath.add(list.get(i));
+    this.resetAllSignals();
+  }
+
+  public List&lt;com.neotys.rest.dataexchange.model.Entry&gt; getEntries(TestRunEvent event, Status status, double dRealtime, double dDuration )
+  {
+    List&lt;Entry&gt; listEntries = new Vector&lt;&gt;();
+
+    listEntries.add((new EntryBuilder(this.getMetricsPath(DURATION), event.getTimestamp())).unit("s").value(Double.valueOf(dDuration)).url("").status(status).build());
+    listEntries.add((new EntryBuilder(this.getMetricsPath(REALTIME), event.getTimestamp())).unit("s").value(Double.valueOf(dRealtime)).url("").status(status).build());
+    listEntries.add((new EntryBuilder(this.getMetricsPath(STATE), event.getTimestamp())).unit("code").value(Double.valueOf(event.getLocalState())).url("").status(status).build());
+
+    return listEntries;
+  }
+
+  protected List&lt;String&gt; getMetricsPath(int metricId)
+  {
+    List&lt;String&gt; path = new Vector&lt;&gt;(this.listExternalDataPath);
+    switch(metricId)
+    {
+      case DURATION   : path.add("Duration"); break;
+      case REALTIME   : path.add("Realtime"); break;
+      case STATE      : path.add("Result"); path.add("State"); break;
+      case EXCEPTIONS : path.add("Result"); path.add("Exceptions"); break;
+      case ERRORS     : path.add("Result"); path.add("Errors"); break;
+      case WARNINGS   : path.add("Result"); path.add("Warnings"); break;
+      default         : path.add("Unknown"); break;
+    }
+
+    return path;
+  }
+
+  protected List&lt;String&gt; getDataPath()
+  {
+    return this.listExternalDataPath;
+  }
+
+  public void signalError()
+  {
+    this.iErrors += 1;
+  }
+
+  public void resetErrors()
+  {
+    this.iErrors = 0;
+  }
+
+  public void signalException()
+  {
+    this.iExceptions += 1;
+  }
+
+  public void resetExceptions()
+  {
+    this.iExceptions = 0;
+  }
+
+  public void signalWarning()
+  {
+    this.iWarnings += 1;
+  }
+
+  public void resetWarnings()
+  {
+    this.iWarnings = 0;
+  }
+
+  public void resetAllSignals()
+  {
+    this.resetWarnings();
+    this.resetErrors();
+    this.resetExceptions();
+  }
+
+  public int getErrors()
+  {
+    return iErrors;
+  }
+
+  public int getExceptions()
+  {
+    return iExceptions;
+  }
+
+  public int getWarnings()
+  {
+    return iWarnings;
+  }
+}
+
+public class ProcedureData extends AbstractExternalData
+{
+
+  public ProcedureData(String name)
+  {
+    super("QF-Test.Procedure.".concat(name));
+  }
+
+  @Override
+  public List&lt;Entry&gt; getEntries(TestRunEvent event, Status status, double dRealtime, double dDuration)
+  {
+    return super.getEntries(event, status, dRealtime, dDuration);
+  }
+
+}
+
+public class SequenceData extends TestcaseData
+{
+  public SequenceData(String name)
+  {
+    super(name);
+  }
+
+  public SequenceData(TestRunEvent event)
+  {
+    super();
+    TestSuiteNode[] axNodes = event.getPath();
+    try
+    {
+      for (TestSuiteNode axNode : axNodes)
+        if(axNode.getType().matches("(TestCase)|(TestSet)|(ProcedureCall)"))
+          this.listExternalDataPath.add(axNode.getName());
+        else
+          this.listExternalDataPath.add(axNode.getTreeName());
+    } catch (Exception e)
+    {
+      // Nur zur Abwehr
+    }
+  }
+
+}
+
+public class TestcaseData extends AbstractExternalData
+{
+
+  public TestcaseData(String name)
+  {
+    super("QF-Test.Testcase.".concat(name));
+  }
+
+  protected TestcaseData()
+  {
+    super("QF-Test.Testcase");
+  }
+
+  @Override
+  public List&lt;Entry&gt; getEntries(TestRunEvent event, Status status, double dRealtime, double dDuration)
+  {
+    List&lt;Entry&gt; retval = super.getEntries(event, status, dRealtime, dDuration);
+    retval.add((new EntryBuilder(this.getMetricsPath(EXCEPTIONS), event.getTimestamp())).unit("exceptions").value(Double.valueOf(this.getExceptions())).url("").status(status).build());
+    retval.add((new EntryBuilder(this.getMetricsPath(ERRORS), event.getTimestamp())).unit("errors").value(Double.valueOf(this.getErrors())).url("").status(status).build());
+    retval.add((new EntryBuilder(this.getMetricsPath(WARNINGS), event.getTimestamp())).unit("warnings").value(Double.valueOf(this.getWarnings())).url("").status(status).build());
+    return retval;
+  }
+
+}
+
+public class TestsetData extends AbstractExternalData
+{
+
+  public TestsetData(String name)
+  {
+    super("QF-Test.Testset.".concat(name));
+  }
+
+  @Override
+  public List&lt;Entry&gt; getEntries(TestRunEvent event, Status status, double dRealtime, double dDuration)
+  {
+    List&lt;Entry&gt; retval = super.getEntries(event, status, dRealtime, dDuration);
+    retval.add((new EntryBuilder(this.getMetricsPath(EXCEPTIONS), event.getTimestamp())).unit("exceptions").value(Double.valueOf(this.getExceptions())).url("").status(status).build());
+    retval.add((new EntryBuilder(this.getMetricsPath(ERRORS), event.getTimestamp())).unit("errors").value(Double.valueOf(this.getErrors())).url("").status(status).build());
+    retval.add((new EntryBuilder(this.getMetricsPath(WARNINGS), event.getTimestamp())).unit("warnings").value(Double.valueOf(this.getWarnings())).url("").status(status).build());
+    return retval;
+  }
+
+}
+</code>
+</ServerScriptStep>
+</Procedure>
+<Procedure id="_3T+" name="removeReportingListener">
+<ServerScriptStep id="_3T-" interpreter="groovy" name="script_neoload_reporting_removeReportingListener">
+<code>try
+{ //  In dem Block wird versucht, den Listener zu entfernen.
+  rc.removeTestRunListener(__NEOLOADDATAEXCHANGELISTENER__);
+  __NEOLOADDATAEXCHANGELISTENER__ = null;
+}
+catch(Exception e)
+{ //  Eine Exception wird zum Beispiel erwartet, wenn die Variable unbekannt ist.
+  rc.logWarning(e.getMessage());
+}
+  </code>
+</ServerScriptStep>
+</Procedure>
+</Package>
+</Package>
+</Package>
+</Package>
+</PackageRoot>
+<ExtraSequence id="_4"/>
+<WindowList id="_5"/>
+</RootStep>

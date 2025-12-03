@@ -1,0 +1,4 @@
+*.bak
+.vscode/**
+neoload/google_gruyere/results/result_*/**
+
