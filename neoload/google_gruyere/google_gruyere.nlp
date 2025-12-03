@@ -1,0 +1,16 @@
+# Project description file
+
+project.name=google_gruyere
+project.version=8.10
+project.original.version=8.10
+product.name=NeoLoad
+product.original.name=NeoLoad
+ssh.trustUnknownHosts.MONITORS=false
+monitor.tls.insecure=false
+product.version=2025.3.0
+product.original.version=2025.3.0
+project.is-open-test-settings-after-upload=false
+project.id=eaf6b6bd-ae17-4ca7-88a3-b24e9a48e050
+project.config.path=config.zip
+project.config.storage=ZIP
+team.server.enabled=false

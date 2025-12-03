@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE RootStep>
+<RootStep id="_0" indentation="0" linelength="160" name="Goolge Gruyere - Demo Web Application" version="9.0.6">
+<include>qfs.qft</include>
+<include>qf-test-listener-neoload.qft</include>
+<TestSet id="_1" name="Smoke Test Cases">
+<TestCase id="_2" name="Navigate To Home">
+<SetupSequence id="_R" name="Start google-gruyere.appspot.com">
+<BasicSequence id="_S" name="Globale Variablen setzen">
+<SetGlobalStep id="_T" varname="client">
+<default>google-gruyere.appspot.com</default>
+</SetGlobalStep>
+<SetGlobalStep id="_U" varname="browser">
+<default>headless-chrome</default>
+</SetGlobalStep>
+<SetGlobalStep id="_V" varname="browserdir"/>
+</BasicSequence>
+<ClientWaiter client="$(client)" engine="web" id="_W" local="true" raise="false" resvarname="isSUTRunning" timeout="0">
+<comment>Dieser Knoten prüft, ob das SUT bereits läuft. Das Ergebnis der Prüfung wird in der Variable isSUTRunning gespeichert. Diese Variable enthält entweder true, wenn das SUT läuft oder false, wenn das SUT nicht läuft. Im folgenden IF-Knoten wird diese Variable ausgewertet.</comment>
+</ClientWaiter>
+<IfSequence id="_X" name="SUT starten, wenn notwendig" test="not $(isSUTRunning)">
+<BasicSequence id="_Y" name="Web-Engine starten">
+<BrowserClientStarter browser="$(browser)" client="$(client)" executable="${qftest:java}" id="_Z" mozhome="$(browserdir)" openwindow="false"/>
+<ClientWaiter client="$(client)" engine="web" id="_a"/>
+</BasicSequence>
+<BasicSequence id="_b" name="Einstellungen für Browser setzen">
+<ProcedureCall id="_c" procedure="qfs.web.browser.settings.doStartupSettings">
+<variable name="client">$(client)</variable>
+<variable name="browser">$(browser)</variable>
+<variable name="mozhome">$(browserdir)</variable>
+<variable name="emptyCache">true</variable>
+<variable name="enableCookies">true</variable>
+<variable name="deleteCookies">true</variable>
+<variable name="locale">en-us</variable>
+<variable name="enableProxy">false</variable>
+<variable name="proxyAddress"/>
+<variable name="proxyPort"/>
+<variable name="proxyAutoconfigurl"/>
+<variable name="enableProxyBypass">false</variable>
+<variable name="proxyBypass"/>
+<variable name="mozprofile"/>
+<variable name="compatibilitymode">no</variable>
+</ProcedureCall>
+</BasicSequence>
+<BasicSequence id="_d" name="Browser-Fenster öffnen">
+<BrowserClientStarter browser="${default:browser:chrome}" client="$(client)" executable="${qftest:java}" id="_e" openwindow="true"
+                      url="https://google-gruyere.appspot.com/start" windowname="gruyere"/>
+<DocumentWaiter client="$(client)" component="genericDocument" id="_f" timeout="60000"/>
+</BasicSequence>
+<BasicSequence id="_g" name="CustomWebResolver konfigurieren">
+<InstallCWRStep client="$(client)" engine="web" id="_h">
+<code>base: autodetect
+
+# Abbildung von DOM-Nodes auf generische Klassen
+# über die Angabe von CSS-Klassen, HTML-Attributen oder HTML-Tags
+#
+# Um ein neues Mapping hinzuzufügen, setzen Sie den Cursor
+# neben "genericClasses" und klicken dann auf das Icon
+# in der Seitenleiste.
+genericClasses:
+
+# Generische Klassennamen oder HTML-Tags von Elementen,
+# die bei der Darstellung der Eltern-Hierarchie nicht berücksichtigt werden
+ignoreTags:
+- &lt;DIV&gt;
+- &lt;SPAN&gt;
+</code>
+<comment>Mit einem CustomWebResolver übersetzen Sie die Spezifika der Komponenten Ihrer Web-Anwendung in generische Klassen, die QF-Test versteht.
+Dadurch werden die Komponentenerkennung drastisch verbessert und spezifischere Checks ermöglicht.
+
+Die wichtigste Kategorie ist "genericClasses". Hier können Sie HTML-Elemente generischen Klassen zuweisen anhand deren HTML-Tags, CSS-Klassen oder HTML-Attributen.
+
+Für weitere Informationen und Beispiele wählen Sie "Was ist das?" im Kontextmenü des Knotens.</comment>
+</InstallCWRStep>
+</BasicSequence>
+</IfSequence>
+</SetupSequence>
+<BasicSequence id="_u" name="Open Page">
+<MouseEventStep clicks="1" client="$(client)" component="#Link:text=Agree \&amp; Start" event="MOUSE_MPRC" id="_v" modifiers="16"/>
+<DocumentWaiter client="$(client)" component="#Window:feature=google-gruyere.appspot.com" id="_w" timeout="60000"/>
+</BasicSequence>
+<BasicSequence id="_x" name="Check Sign In Control">
+<CheckBooleanStep checktype="visible" client="$(client)" component="#Link:text=Sign in" id="_y"/>
+</BasicSequence>
+<CleanupSequence id="_k" name="Close google-gruyere.appspot.com">
+<ClientStopper client="$(client)" id="_l"/>
+<ProcessWaiter client="$(client)" id="_m"/>
+</CleanupSequence>
+</TestCase>
+</TestSet>
+<PackageRoot id="_3"/>
+<ExtraSequence id="_4">
+<SetupSequence id="_6" name="Starte google-gruyere.appspot.com">
+<BasicSequence id="_7" name="Globale Variablen setzen">
+<SetGlobalStep id="_8" varname="client">
+<default>google-gruyere.appspot.com</default>
+</SetGlobalStep>
+<SetGlobalStep id="_9" varname="browser">
+<default>chrome</default>
+</SetGlobalStep>
+<SetGlobalStep id="_A" varname="browserdir"/>
+</BasicSequence>
+<ClientWaiter client="$(client)" engine="web" id="_B" local="true" raise="false" resvarname="isSUTRunning" timeout="0">
+<comment>Dieser Knoten prüft, ob das SUT bereits läuft. Das Ergebnis der Prüfung wird in der Variable isSUTRunning gespeichert. Diese Variable enthält entweder true, wenn das SUT läuft oder false, wenn das SUT nicht läuft. Im folgenden IF-Knoten wird diese Variable ausgewertet.</comment>
+</ClientWaiter>
+<IfSequence id="_C" name="SUT starten, wenn notwendig" test="not $(isSUTRunning)">
+<BasicSequence id="_D" name="Web-Engine starten">
+<BrowserClientStarter browser="$(browser)" client="$(client)" executable="${qftest:java}" id="_E" mozhome="$(browserdir)" openwindow="false"/>
+<ClientWaiter client="$(client)" engine="web" id="_F"/>
+</BasicSequence>
+<BasicSequence id="_G" name="Einstellungen für Browser setzen">
+<ProcedureCall id="_H" procedure="qfs.web.browser.settings.doStartupSettings">
+<variable name="client">$(client)</variable>
+<variable name="browser">$(browser)</variable>
+<variable name="mozhome">$(browserdir)</variable>
+<variable name="emptyCache">true</variable>
+<variable name="enableCookies">true</variable>
+<variable name="deleteCookies">true</variable>
+<variable name="locale">en-us</variable>
+<variable name="enableProxy">false</variable>
+<variable name="proxyAddress"/>
+<variable name="proxyPort"/>
+<variable name="proxyAutoconfigurl"/>
+<variable name="enableProxyBypass">false</variable>
+<variable name="proxyBypass"/>
+<variable name="mozprofile"/>
+<variable name="compatibilitymode">no</variable>
+</ProcedureCall>
+</BasicSequence>
+<BasicSequence id="_I" name="Browser-Fenster öffnen">
+<BrowserClientStarter browser="${default:browser:chrome}" client="$(client)" executable="${qftest:java}" id="_J" openwindow="true"
+                      url="https://google-gruyere.appspot.com/start" windowname="gruyere"/>
+<DocumentWaiter client="$(client)" component="genericDocument" id="_K" timeout="60000"/>
+</BasicSequence>
+<BasicSequence id="_L" name="CustomWebResolver konfigurieren">
+<InstallCWRStep client="$(client)" engine="web" id="_M">
+<code>base: autodetect
+
+# Abbildung von DOM-Nodes auf generische Klassen
+# über die Angabe von CSS-Klassen, HTML-Attributen oder HTML-Tags
+#
+# Um ein neues Mapping hinzuzufügen, setzen Sie den Cursor
+# neben "genericClasses" und klicken dann auf das Icon
+# in der Seitenleiste.
+genericClasses:
+
+# Generische Klassennamen oder HTML-Tags von Elementen,
+# die bei der Darstellung der Eltern-Hierarchie nicht berücksichtigt werden
+ignoreTags:
+- &lt;DIV&gt;
+- &lt;SPAN&gt;
+</code>
+<comment>Mit einem CustomWebResolver übersetzen Sie die Spezifika der Komponenten Ihrer Web-Anwendung in generische Klassen, die QF-Test versteht.
+Dadurch werden die Komponentenerkennung drastisch verbessert und spezifischere Checks ermöglicht.
+
+Die wichtigste Kategorie ist "genericClasses". Hier können Sie HTML-Elemente generischen Klassen zuweisen anhand deren HTML-Tags, CSS-Klassen oder HTML-Attributen.
+
+Für weitere Informationen und Beispiele wählen Sie "Was ist das?" im Kontextmenü des Knotens.</comment>
+</InstallCWRStep>
+</BasicSequence>
+</IfSequence>
+</SetupSequence>
+<BasicSequence id="_n" name="Aufnahme 03.12.25, 09:28">
+<MouseEventStep clicks="1" client="$(client)" component="#Link:text=Agree \&amp; Start" event="MOUSE_MPRC" id="_o" modifiers="16"/>
+<DocumentWaiter client="$(client)" component="#Window:feature=google-gruyere.appspot.com" id="_p" timeout="60000"/>
+<CheckBooleanStep checktype="visible" client="$(client)" component="#Link:text=Sign in" id="_r"/>
+</BasicSequence>
+</ExtraSequence>
+<WindowList id="_5"/>
+</RootStep>
