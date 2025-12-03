@@ -53,3 +53,7 @@ The task is a little easier with specialized custom actions, which take care of
 the corresponding call with just a few parameters. The repository 
 [neoload.advanced-action.qf-test](https://github.com/dschweie/neoload.advanced-action.qf-test) 
 contains these custom actions, which can then be integrated and used in the project.
+
+##  Possible initial steps
+
+This repository contains a showcase that allows you to test it in your local environment after a short time. The necessary steps are documented on the [following page](doc/howto_showcase.md).
