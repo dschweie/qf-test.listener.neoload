@@ -19,8 +19,15 @@
 <Package id="_D" name="dschweie">
 <Package id="_F" name="common">
 <Package id="_h" name="environment">
-<Procedure id="script_common-environment-getInstanceId" name="getInstanceId" uid="_i">
-<ServerScriptStep id="_j" interpreter="groovy">
+<Procedure id="_i" name="getInstanceId">
+<comment>This procedure returns an ID.
+
+QF-Test recognizes the Runid as an ID that can be used as an instance ID.
+
+Alternatively, an external program can pass a value via a global variable, which can then be interpreted as an instance ID.
+
+@return    The procedure returns an instance ID.</comment>
+<ServerScriptStep id="_j" interpreter="groovy" name="script_common-environment-getInstanceId">
 <code>if(!rc.getGlobals().containsKey("INSTANCEID"))
 {
   rc.setLocal("getInstanceId", rc.getStr("qftest","runid"))
@@ -36,7 +43,9 @@ else
 </Package>
 <Package id="_C" name="neoload">
 <Package id="_B" name="reporting">
+<comment>The procedures in this package can be used to manage the listener that QF-Test uses to transmit metrics to NeoLoad's Data Exchange API.</comment>
 <Dependency forcedcleanup="true" id="_3VM" name="ensureReportingActivated">
+<comment>The dependency can be used to register the listener via a dependency.</comment>
 <SetupSequence id="_3VN" name="optionales Registrieren des Listeners">
 <ServerScriptStep id="_3VO" interpreter="groovy">
 <code>try
@@ -111,28 +120,39 @@ import de.qfs.apps.qftest.step.AbstractStep;
 import com.neotys.rest.dataexchange.client.DataExchangeAPIClient;
 import com.neotys.rest.dataexchange.client.DataExchangeAPIClientFactory;
 import com.neotys.rest.dataexchange.model.ContextBuilder;
-import com.neotys.rest.dataexchange.model.EntryBuilder;
 import com.neotys.rest.dataexchange.model.Entry;
-import com.neotys.rest.dataexchange.model.Status;
+import com.neotys.rest.dataexchange.model.EntryBuilder;
 import com.neotys.rest.dataexchange.model.Status.State;
+import com.neotys.rest.dataexchange.model.Status;
 import com.neotys.rest.error.NeotysAPIException;
 
-//  Prüfung, ob bereits ein Listener des Typs registriert ist.
+/*
+ *  Since there should only be one instance of the listener, the system first 
+ *  checks whether there is already an instance that needs to be deleted.
+ */
 try
 {
   if(null != __NEOLOADDATAEXCHANGELISTENER__)
-  { //  In diesem Fall wurde bereits ein Listner registriert, der zu löschen ist.
+  { //  The existing listener instance has to be removed
     rc.removeTestRunListener(__NEOLOADDATAEXCHANGELISTENER__);
     __NEOLOADDATAEXCHANGELISTENER__ = null;
   }
 }
-catch(Exception e) {  /* Keine Aktion erforderlich, da dieser Block beim ersten Aufruf erwartet wird. */ }
+catch(Exception e) {  /* No action required */ }
 
-//  Initialisierung und Registrierung einer neuen Instanz des Listeners
-__NEOLOADDATAEXCHANGELISTENER__ = new NeoloadDataExchangeListener(rc.context, rc.getStr("strNeoloadController"), rc.getInt("iPort"), rc.getStr("strAPIKey")); 
+//  Registering a new instance of the listener
+__NEOLOADDATAEXCHANGELISTENER__ = new NeoloadDataExchangeListener(  rc.context, 
+                                                                    rc.getStr("strNeoloadController"), 
+                                                                    rc.getInt("iPort"), 
+                                                                    rc.getStr("strAPIKey")  ); 
 rc.addTestRunListener(__NEOLOADDATAEXCHANGELISTENER__);
 
 
+/**
+ *  This class is used to transfer metrics from QF-Test to NeoLoad.
+ *
+ *  
+ */
 public class NeoloadDataExchangeListener extends AbstractTestRunListener
 {
   /// \brief    Klassenattribut mit regulärem Ausdruck, der zur Identifikation der relevanten Schritte verwendet wird.
@@ -152,9 +172,6 @@ public class NeoloadDataExchangeListener extends AbstractTestRunListener
 
   /// \brief    Beschreibung für die Art der Hardware zu Statistikzwecken.
   private String strHardware = "Workstation";
-
-  /// \brief    InstanzId, die NeoLoad zu einer Datenübergabe hinterlegen kann.
-  private String strInstanceId = "unbekannt";
 
   /// \brief    Beschreibung des Ortes der Ausführung zu Statistikzwecken.
   private String strLocation = "";
@@ -182,7 +199,6 @@ public class NeoloadDataExchangeListener extends AbstractTestRunListener
     { //  Umgebungsparameter für den Context werden gesetzt
       try
       {
-        this.strInstanceId = this.rc.callProcedure("de.dschweie.common.environment.getInstanceId").toString();
         this.strLocation =  this.rc.lookup("env", "computername", false).toString();
         this.strOS = System.getProperty("os.name", "unknown");
         this.strSoftware = "QF-Test ".concat(rc.lookup("qftest", "version", false).toString());
@@ -243,7 +259,7 @@ public class NeoloadDataExchangeListener extends AbstractTestRunListener
         }
 
         cb.hardware(this.strHardware.toString())
-          .instanceId(this.strInstanceId.toString())
+          .instanceId(this.getInstanceId())
           .location(this.strLocation.toString())
           .os(this.strOS.toString())
           .script(strScript.toString())
@@ -270,17 +286,10 @@ public class NeoloadDataExchangeListener extends AbstractTestRunListener
 
     return this.xClient;
   }
-
-  /**
-   *  \brief    Setter-Methode für das Instantattribut strInstanceId
-   */
-  protected void setInstanceId(String id)
+  
+  protected String getInstanceId()
   {
-    if(!this.strInstanceId.equalsIgnoreCase(id))
-    {
-      this.strInstanceId = id;
-      this.xClient = null;
-    }
+    return this.rc.callProcedure("de.dschweie.common.environment.getInstanceId").toString();
   }
 
   /**
@@ -297,31 +306,6 @@ public class NeoloadDataExchangeListener extends AbstractTestRunListener
   public String getObservedNodeRegEx()
   {
     return this.regexObservedNodes.toString();
-  }
-
-  /**
-   *  \brief    Die Methode setzt zu Beginn eines neuen Testlauf die InstanceId
-   */
-  @Override
-  public void runStarted(TestRunEvent event)
-  {
-    try
-    {
-      this.setInstanceId(this.rc.lookup("qftest", "runid", false).toString());
-    } catch (TestException e)
-    {
-      if(null != this.rc)
-        this.rc.logError("AbstractNeoloadDataExchangeListener.runStarted(TestRunEvent event) =[0]=&gt; ".concat(e.toString()));
-    }
-    catch(NullPointerException n)
-    {
-      //  Der Block fängt NullPointerExceptions ab, die in der Vorbereitung vorkommen können.
-    }
-    catch(Exception f)
-    {
-      if(null != this.rc)
-        this.rc.logError("AbstractNeoloadDataExchangeListener.runStarted(TestRunEvent event) =[1]=&gt; ".concat(f.toString()));
-    }
   }
 
   /**
