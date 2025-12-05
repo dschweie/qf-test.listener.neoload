@@ -1,0 +1,10 @@
+GET http://google-gruyere.appspot.com/favicon.ico HTTP/1.1
+Host: google-gruyere.appspot.com
+Proxy-Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Referer: http://google-gruyere.appspot.com/start
+Accept-Encoding: gzip, deflate
+Accept-Language: de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: GRUYERE_ID=436619193055025654639065108985331378212
+

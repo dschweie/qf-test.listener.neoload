@@ -1,4 +1,4 @@
-/*
+﻿/*
 * Copyright (c) Neotys 2005-2019.
 */
 
