@@ -1,0 +1,1106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LFET version="LF-ET 2.4.2 (260414a)" language="German" saveDate="2026.05.06 at 11:28:27 CEST" saveUser="dschweie">
+  <Conditions>
+    <Condition uId="11446800829457960">
+      <Title language="German" value="eventProcedure"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17678665648441150">
+          <Symbol language="German" value="nodeEntered"/>
+          <Title language="German" value="Benachrichtigt den Listener, dass ein Knoten betreten wurde."/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="&quot;$$Symbol&quot;.equals(eventProcedure)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678665648461152">
+          <Symbol language="German" value="nodeExited"/>
+          <Title language="German" value="Benachrichtigt den Listener, dass ein Knoten verlassen wurde."/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="&quot;$$Symbol&quot;.equals(eventProcedure)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678665886801159">
+          <Symbol language="German" value="problemOccurred"/>
+          <Title language="German" value="Benachrichtigt den Listener, dass ein Problem aufgetreten ist."/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="&quot;$$Symbol&quot;.equals(eventProcedure)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678666260741162">
+          <Symbol language="German" value="runStarted"/>
+          <Title language="German" value="Benachrichtigt den Listener, dass ein Testlauf gestartet wurde."/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="&quot;$$Symbol&quot;.equals(eventProcedure)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678666278461163">
+          <Symbol language="German" value="runStopped"/>
+          <Title language="German" value="Benachrichtigt den Listener, dass ein Testlauf beendet wurde."/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="&quot;$$Symbol&quot;.equals(eventProcedure)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678666415501166">
+          <Symbol language="German" value="*"/>
+          <Title language="German" value="unbekanntes Event"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="17678735799301490">
+      <Title language="German" value="NeoloadStatus"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17678738374251576">
+          <Symbol language="German" value="NEOLOAD_INITIALIZING"/>
+          <Title language="German" value="NeoLoad wird aktuell gestartet"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( Status.$$Symbol == status )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678739007311583">
+          <Symbol language="German" value="NO_PROJECT"/>
+          <Title language="German" value="NeoLoad ist gestartet und kein Projekt ist geöffnet"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( Status.$$Symbol == status )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678739010161584">
+          <Symbol language="German" value="PROJECT_INITIALIZING"/>
+          <Title language="German" value="NeoLoad ist gestartet und ein Projekt wird gerade eingelesen"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( Status.$$Symbol == status )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678739020351585">
+          <Symbol language="German" value="READY"/>
+          <Title language="German" value="NeoLoad ist bereit, einen Test aufzeichnen zu können"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( Status.$$Symbol == status )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678739022531586">
+          <Symbol language="German" value="BUSY"/>
+          <Title language="German" value="NeoLoad ist durch eine Aufzeichnung oder einen Dialog blockiert"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( Status.$$Symbol == status )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678739023261587">
+          <Symbol language="German" value="TEST_LOADING"/>
+          <Title language="German" value="NeoLoad startet die Ausführung eines Tests"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( Status.$$Symbol == status )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678739024751588">
+          <Symbol language="German" value="TEST_RUNNING"/>
+          <Title language="German" value="NeoLoad führt einen Test aus"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( Status.$$Symbol == status )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678739029081589">
+          <Symbol language="German" value="TEST_STOPPING"/>
+          <Title language="German" value="NeoLoad stoppt die Ausführung eines Tests"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( Status.$$Symbol == status )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678739561701598">
+          <Symbol language="German" value="*"/>
+          <Title language="German" value="unbekannter Status von NeoLoad"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="Prolog" value="status = this.getClient().getStatus()"/>
+    </Condition>
+    <Condition uId="17680570187869298">
+      <Title language="German" value="NeoloadRecordingStatus"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17680570838109864">
+          <Symbol language="German" value="READY"/>
+          <Title language="German" value="Aufnahme ist in NeoLoad nicht gestartet"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="(RecordingStatus.Status.$$Symbol == recordingStatus.getStatus())"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17680570838129866">
+          <Symbol language="German" value="RECORDING"/>
+          <Title language="German" value="Aufnahme ist in NeoLoad gestartet"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="(RecordingStatus.Status.$$Symbol == recordingStatus.getStatus())"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17680571639809871">
+          <Symbol language="German" value="POSTRECORDING"/>
+          <Title language="German" value="Die Verarbeitung nach einer Aufnahme von NeoLoad wird durchlaufen"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="(RecordingStatus.Status.$$Symbol == recordingStatus.getStatus())"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17680573175071637">
+          <Symbol language="German" value="*"/>
+          <Title language="German" value="unerwarteter Status"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="Prolog" value="recordingStatus = this.getClient().getRecordingStatus()"/>
+    </Condition>
+    <Condition uId="17678796647453818">
+      <Title language="German" value="Parameter &quot;ProjectMode&quot;"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17678797624674012">
+          <Symbol language="German" value="CURRENT"/>
+          <Title language="German" value="Nutzen des aktuellen Projekts"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="   (&lt;br/&gt;    &quot;CURRENT&quot;.equals(this.strNeoloadProjectMode)&lt;br/&gt;)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678797624694014">
+          <Symbol language="German" value="CREATE"/>
+          <Title language="German" value="Neues Projekt soll erzeugt werden"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="   (&lt;br/&gt;    &quot;CREATE&quot;.equals(this.strNeoloadProjectMode)&lt;br/&gt;)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678798153774019">
+          <Symbol language="German" value="OPEN"/>
+          <Title language="German" value="Projekt soll geöffnet werden"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="   (&lt;br/&gt;    &quot;OPEN&quot;.equals(this.strNeoloadProjectMode)&lt;br/&gt;)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678799264704022">
+          <Symbol language="German" value="*"/>
+          <Title language="German" value="unbekannter Wert für den Parameter"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="17766096212588345">
+      <Title language="German" value="Parameter &quot;NeoloadProjectPath&quot;"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17766096753739232">
+          <Symbol language="German" value="empty"/>
+          <Title language="German" value="Der Parameter ist nicht gesetzt."/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( ( null == strNeoloadProjectPath ) || ( 0 == strNeoloadProjectPath.length() ) )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17766096753759234">
+          <Symbol language="German" value="exists"/>
+          <Title language="German" value="Der Parameter passt zu einer Datei."/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( Files.exists( Paths.get(strNeoloadProjectPath) ) )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17766138520061900">
+          <Symbol language="German" value="unknown"/>
+          <Title language="German" value="Es ist nicht klar, ob der Parameter einen Wert enthält, der einer Dateiangabe entspricht."/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="17678780826112559">
+      <Title language="German" value="Parameter &quot;Name&quot;"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17678789982422744">
+          <Symbol language="German" value="set"/>
+          <Title language="German" value="Name ist gesetzt"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="      (&lt;br/&gt;    this.strNeoloadProjectName?.length() &gt; 0&lt;br/&gt;)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17678789982442746">
+          <Symbol language="German" value="empty"/>
+          <Title language="German" value="Name ist nicht hinterlegt"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="17679449818957924">
+      <Title language="German" value="Semaphor: Ready"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17679449952538225">
+          <Symbol language="German" value="true"/>
+          <Title language="German" value="Zu Beginn des Tests waren die Voraussetzungen für die Aufnahme gegeben"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="   (&lt;br/&gt;    this.semaphorRecordingReady&lt;br/&gt;)"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17679449952558227">
+          <Symbol language="German" value="false"/>
+          <Title language="German" value="Eine Aufnahme war nicht möglich"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="17779618000897503">
+      <Title language="German" value="Semaphor: Open Project"/>
+      <Text language="German" value="In diesem Semaphor hält der Listener die Information, ob das NeoLoad Projekt durch den Listener geöffnet wurde."/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17779619354648765">
+          <Symbol language="German" value="false"/>
+          <Title language="German" value="Das NeoLoad-Projekt wurde nicht durch den Listener geöffnet, was dem Standard entspricht"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( !this.semaphorOpenProject )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17779619354668767">
+          <Symbol language="German" value="true"/>
+          <Title language="German" value="Der Listener hat ein NeoLoad-Projekt geöffnet."/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="17679697183154252">
+      <Title language="German" value="Node Type"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17679699990864738">
+          <Symbol language="German" value="TestSet"/>
+          <Title language="German" value="TestSet-Knoten ist ein Knoten, Testfall-Knoten enthalten kann"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( event.getNode().getType().trim().equals(&quot;$$Symbol&quot;) )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17679699990884740">
+          <Symbol language="German" value="TestCase"/>
+          <Title language="German" value="Testfall-Knoten entspricht einem User Path in NeoLoad"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( event.getNode().getType().trim().equals(&quot;$$Symbol&quot;) )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17679700045074745">
+          <Symbol language="German" value="SetupSequence"/>
+          <Title language="German" value="Setup-Knoten entspricht dem Base Container mit dem Namen Init in NeoLoad"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( event.getNode().getType().trim().equals(&quot;$$Symbol&quot;) )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17679725401065731">
+          <Symbol language="German" value="CleanupSequence"/>
+          <Title language="German" value="Cleanup-Knoten entspricht dem Base Container mit dem Namen End in NeoLoad"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( event.getNode().getType().trim().equals(&quot;$$Symbol&quot;) )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17679700046984746">
+          <Symbol language="German" value="Node"/>
+          <Title language="German" value="Knoten, die zu Transaktionen werden sollen: BasicSequence, TimeConstrainedSequence, TimeConstrainedSequence, TestStep, IfSequence, WhileSequence. RepeatSequence, Procedure"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( event.getNode().getType().trim() in [&quot;BasicSequence&quot;, &quot;TimeConstrainedSequence&quot;, &quot;TimeConstrainedSequence&quot;, &quot;TestStep&quot;, &quot;IfSequence&quot;, &quot;WhileSequence&quot;, &quot;RepeatSequence&quot;, &quot;Procedure&quot;])"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17679740528925739">
+          <Symbol language="German" value="*"/>
+          <Title language="German" value="Knotentyp, der für die Aufzeichnung nicht relevant ist."/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="17679452845879161">
+      <Title language="German" value="Counter: waitForReady"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="17679454010289508">
+          <Symbol language="German" value="inside"/>
+          <Title language="German" value="Wartezeit ist noch nicht abgelaufen"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="LogArg" value="( this.counterWaitForReady &lt; this.borderWaitForReady )"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="17679454010309510">
+          <Symbol language="German" value="outside"/>
+          <Title language="German" value="Wartezeit ist überschritten"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+  </Conditions>
+  <Actions>
+    <Action uId="17678827124806534">
+      <Title language="German" value="Semaphor: Ready"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="17679445800287066">
+          <Symbol language="German" value="true"/>
+          <Title language="German" value="Aufnahme ist möglich"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.semaphorRecordingReady = true"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17679445859987070">
+          <Symbol language="German" value="false"/>
+          <Title language="German" value="Aufnahme soll nicht gestartet werden"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.semaphorRecordingReady = false"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
+    </Action>
+    <Action uId="17679779842736276">
+      <Title language="German" value="Stack: Transaction"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="17679780248886814">
+          <Symbol language="German" value="Reset"/>
+          <Title language="German" value="alle Elemente werden gelöscht"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.containerStack.clear()"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17679780554186818">
+          <Symbol language="German" value="Push"/>
+          <Title language="German" value="ein Element wird in den Stack eingefügt"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="if(null != event.getNode().getName()) this.containerStack.push(&quot;&quot;&quot;${event.getNode().getName().trim()}&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17679780955006821">
+          <Symbol language="German" value="Pop"/>
+          <Title language="German" value="ein Element wird entfernt"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="if(null != event.getNode().getName())&lt;br/&gt;  if(1 == this.containerStack.search(&quot;&quot;&quot;${event.getNode().getName().trim()}&quot;&quot;&quot;))&lt;br/&gt;    this.containerStack.pop()"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
+    </Action>
+    <Action uId="17679451508598528">
+      <Title language="German" value="Counter: waitForReady"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="17679451836818845">
+          <Symbol language="German" value="Reset"/>
+          <Title language="German" value="Zurücksetzen auf 0"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.counterWaitForReady = 0"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17679451891798849">
+          <Symbol language="German" value="+1"/>
+          <Title language="German" value="Zähler um 1 erhöhen"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="Thread.sleep(100)&lt;br/&gt;++this.counterWaitForReady"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
+    </Action>
+    <Action uId="17678786920732560">
+      <Title language="German" value="NL: Create Project"/>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.createProject(this.strNeoloadProjectName, null, true)"/>
+    </Action>
+    <Action uId="17678786928172561">
+      <Title language="German" value="NL: Open Project"/>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.openProject(this.strNeoloadProjectPath)"/>
+    </Action>
+    <Action uId="17679694209403677">
+      <Title language="German" value="NL: Start Recording"/>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.startRecording(event.getNode().getName().trim(), BaseContainer.Actions, true, false, true, &quot;QF-Test-Recording&quot;)"/>
+    </Action>
+    <Action uId="17680566609868190">
+      <Title language="German" value="NL: Set Container"/>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.setContainer(this.containerStack.toArray().join(&quot;.&quot;))"/>
+    </Action>
+    <Action uId="17680566483418188">
+      <Title language="German" value="NL: Set Base Container"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="17680568855748743">
+          <Symbol language="German" value="Init"/>
+          <Title language="German" value="Container für Vorbedingungen"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.setBaseContainer(BaseContainer.Init)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17680569236848747">
+          <Symbol language="German" value="Actions"/>
+          <Title language="German" value="Container für die eigentlichen Testschritte"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.setBaseContainer(BaseContainer.Actions)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17680569438838750">
+          <Symbol language="German" value="End"/>
+          <Title language="German" value="Container für Nachbedingungen"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.setBaseContainer(BaseContainer.End)"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
+    </Action>
+    <Action uId="17679694394923679">
+      <Title language="German" value="NL: Stop Recording"/>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.stopRecording(false, false, null)"/>
+    </Action>
+    <Action uId="17678786935172562">
+      <Title language="German" value="NL: Save Project"/>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.saveProject();"/>
+    </Action>
+    <Action uId="17779617508817500">
+      <Title language="German" value="NL: Close Project"/>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.closeProject(false, false)"/>
+    </Action>
+    <Action uId="17678763510662221">
+      <Title language="German" value="loop"/>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.performActions(eventProcedure, event)"/>
+    </Action>
+    <Action uId="17678755037561901">
+      <Title language="German" value="logUnexpectedBehavior"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="17678756350712060">
+          <Symbol language="German" value="unknownNLStatus"/>
+          <Title language="German" value="Der Status von NeoLoad ist nicht bekannt"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A12/01) - logUnexpectedBehavior(unknownNLStatus) : Der Status '${status.toString()}' von NeoLoad ist nicht bekannt&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17680592154755896">
+          <Symbol language="German" value="unexpectedNLStatus"/>
+          <Title language="German" value="Der Status von NeoLoad kommt unerwartet"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A12/02) - logUnexpectedBehavior(unknownNLStatus) : Der Status von NeoLoad ist nicht bekannt&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17680582091153221">
+          <Symbol language="German" value="unknownNLRecStatus"/>
+          <Title language="German" value="Der Recording Status von NeoLoad ist nicht bekannt"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A12/03) - logUnexpectedBehavior($$Symbol) : Der Recording Status '${recordingStatus.toString()}' von NeoLoad ist nicht bekannt&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17679491526740584">
+          <Symbol language="German" value="unknownQFTEvent"/>
+          <Title language="German" value="Die Kennung zum Event von QF-Test ist unbekannt"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A12/04) - logUnexpectedBehavior(unknownQFTEvent) : Die Kennung zum Event von QF-Test ist unbekannt&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17678758949952065">
+          <Symbol language="German" value="invalidNLStatus"/>
+          <Title language="German" value="Mit NeoLoad in diesem Status kann der Listener nich reagieren"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A12/05) - logUnexpectedBehavior(invalidNLStatus) : Mit NeoLoad in diesem Status kann der Listener nich reagieren&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17678802421764887">
+          <Symbol language="German" value="noNLProjectOpen"/>
+          <Title language="German" value="Es ist aktuell kein Projekt in NeoLoad geöffnet"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A12/06) - logUnexpectedBehavior(noDirectorynoNLProjectOpenPath) : Es ist aktuell kein Projekt in NeoLoad geöffnet&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17680585904584499">
+          <Symbol language="German" value="unexpectedQFTNode"/>
+          <Title language="German" value="Der Knoten, der in QF-Test betreten wird, ist unerwartet"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A12/07) - logUnexpectedBehavior($$Symbol) : Der Knoten, der in QF-Test betreten wird, ist unerwartet&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
+    </Action>
+    <Action uId="17678800071524226">
+      <Title language="German" value="logParameterError"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="17678800308654448">
+          <Symbol language="German" value="unknownProjectMode"/>
+          <Title language="German" value="Der Wert im Parameter &quot;ProjectMode&quot; ist unbekannt und damit keine Verarbeitung möglich"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A13/01) - logParameterError(unknownProjectMode) : Der Wert im Parameter 'ProjectMode' ist unbekannt und damit keine Verarbeitung möglich&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17766758704776997">
+          <Symbol language="German" value="emptyProjectPath"/>
+          <Title language="German" value="Der Wert im Parameter &quot;strNeoloadProjectPath&quot; ist leer."/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A$$Nr) - logParameterError($$Symbol) : Es wurde kein Pfad für das NeoLoad-Projekt übergeben.&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17766778405850826">
+          <Symbol language="German" value="invalidProjectPath"/>
+          <Title language="German" value="Der Wert im Parameter &quot;strNeoloadProjectPath&quot; entspricht keinem gültigen Wert."/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A$$Nr) - logParameterError($$Symbol) : Es wurde ein ungültiger Wert als Pfad für das NeoLoad-Projekt übergeben.&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="17678823596555790">
+          <Symbol language="German" value="noName"/>
+          <Title language="German" value="Es wurde keine Name für das NeoLoad-Projekt übergeben"/>
+          <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logError(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A13/02) - logParameterError(noName) : Es wurde keine Name für das NeoLoad-Projekt übergeben&quot;&quot;&quot;)"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
+    </Action>
+    <Action uId="17679490878180216">
+      <Title language="German" value="nothing to do"/>
+      <SourceCode codeLanguage="Groovy" sourceCodeType="StmtSeq" value="this.rc.logMessage(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (A$$Nr &quot;nothing to do&quot;) : event = $eventProcedure ; json = ${event.asJsonValue().toString()}&quot;&quot;&quot;)"/>
+    </Action>
+  </Actions>
+  <Rules lastId="157">
+    <Rule id="63">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="98">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678738374251576"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="135">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17679699990864738"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="150">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17679700045074745"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="151">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17679725401065731"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="152">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17679700046984746"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="153">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17679740528925739"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="136">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ActionOccurrenceLink link="17678802421764887"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678797624674012"/>
+    </Rule>
+    <Rule id="156">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ConditionOccurrenceLink link="17678797624694014"/>
+      <ConditionOccurrenceLink link="17678789982422744"/>
+      <ActionLink link="17678786920732560"/>
+      <ActionLink link="17678763510662221"/>
+    </Rule>
+    <Rule id="157">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678797624694014"/>
+      <ConditionOccurrenceLink link="17678789982442746"/>
+      <ActionOccurrenceLink link="17678823596555790"/>
+    </Rule>
+    <Rule id="138">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678798153774019"/>
+      <ConditionOccurrenceLink link="17766096753739232"/>
+    </Rule>
+    <Rule id="139">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ConditionOccurrenceLink link="17678798153774019"/>
+      <ConditionOccurrenceLink link="17766096753759234"/>
+      <ActionLink link="17678786928172561"/>
+      <ActionLink link="17679694209403677"/>
+    </Rule>
+    <Rule id="140">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678798153774019"/>
+      <ConditionOccurrenceLink link="17766138520061900"/>
+    </Rule>
+    <Rule id="141">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678799264704022"/>
+    </Rule>
+    <Rule id="100">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739010161584"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+    </Rule>
+    <Rule id="92">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17679699990864738"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="93">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ActionLink link="17679694209403677"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ActionOccurrenceLink link="17679780248886814"/>
+    </Rule>
+    <Rule id="94">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17679700045074745"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="95">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17679725401065731"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="96">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17679700046984746"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="97">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17679740528925739"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="101">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838109864"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+    </Rule>
+    <Rule id="102">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679699990864738"/>
+      <ActionOccurrenceLink link="17680585904584499"/>
+      <ActionLink link="17679694394923679"/>
+    </Rule>
+    <Rule id="103">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ActionOccurrenceLink link="17680585904584499"/>
+      <ActionLink link="17679694394923679"/>
+    </Rule>
+    <Rule id="104">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679700045074745"/>
+      <ActionOccurrenceLink link="17680568855748743"/>
+      <ActionOccurrenceLink link="17679780248886814"/>
+    </Rule>
+    <Rule id="105">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679725401065731"/>
+      <ActionOccurrenceLink link="17680569438838750"/>
+      <ActionOccurrenceLink link="17679780248886814"/>
+    </Rule>
+    <Rule id="106">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679700046984746"/>
+      <ActionOccurrenceLink link="17679780554186818"/>
+      <ActionLink link="17680566609868190"/>
+    </Rule>
+    <Rule id="107">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679740528925739"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="108">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680571639809871"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="109">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680573175071637"/>
+      <ActionOccurrenceLink link="17680582091153221"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="110">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739023261587"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="111">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739024751588"/>
+      <ActionOccurrenceLink link="17680582091153221"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="112">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739029081589"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ActionOccurrenceLink link="17680582091153221"/>
+    </Rule>
+    <Rule id="113">
+      <ConditionOccurrenceLink link="17678665648441150"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739561701598"/>
+      <ActionOccurrenceLink link="17678756350712060"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="65">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="114">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678738374251576"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+    </Rule>
+    <Rule id="149">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="116">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739010161584"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+    </Rule>
+    <Rule id="117">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17680570838109864"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="118">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+    </Rule>
+    <Rule id="134">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17680571639809871"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="120">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17680573175071637"/>
+      <ActionOccurrenceLink link="17680582091153221"/>
+    </Rule>
+    <Rule id="121">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838109864"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="122">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679699990864738"/>
+      <ActionOccurrenceLink link="17680585904584499"/>
+    </Rule>
+    <Rule id="124">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679700045074745"/>
+      <ActionOccurrenceLink link="17680569236848747"/>
+      <ActionOccurrenceLink link="17679780248886814"/>
+      <ActionLink link="17680566609868190"/>
+    </Rule>
+    <Rule id="125">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679725401065731"/>
+      <ActionOccurrenceLink link="17679780248886814"/>
+      <ActionLink link="17680566609868190"/>
+    </Rule>
+    <Rule id="126">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679700046984746"/>
+      <ActionOccurrenceLink link="17679780955006821"/>
+      <ActionLink link="17680566609868190"/>
+    </Rule>
+    <Rule id="127">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679740528925739"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="154">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ActionLink link="17679694394923679"/>
+      <ActionOccurrenceLink link="17679780248886814"/>
+      <ActionLink link="17680566609868190"/>
+      <ConditionOccurrenceLink link="17779619354648765"/>
+    </Rule>
+    <Rule id="155">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680570838129866"/>
+      <ConditionOccurrenceLink link="17679699990884740"/>
+      <ActionLink link="17679694394923679"/>
+      <ActionOccurrenceLink link="17679780248886814"/>
+      <ActionLink link="17680566609868190"/>
+      <ConditionOccurrenceLink link="17779619354668767"/>
+      <ActionLink link="17779617508817500"/>
+      <ActionLink link="17678786935172562"/>
+    </Rule>
+    <Rule id="128">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680571639809871"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="129">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17680573175071637"/>
+      <ActionOccurrenceLink link="17680582091153221"/>
+    </Rule>
+    <Rule id="130">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739023261587"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+    </Rule>
+    <Rule id="131">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739024751588"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+    </Rule>
+    <Rule id="132">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739029081589"/>
+      <ActionOccurrenceLink link="17680592154755896"/>
+    </Rule>
+    <Rule id="133">
+      <ConditionOccurrenceLink link="17678665648461152"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+      <ConditionOccurrenceLink link="17678739561701598"/>
+      <ActionOccurrenceLink link="17678756350712060"/>
+    </Rule>
+    <Rule id="66">
+      <ConditionOccurrenceLink link="17678665886801159"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+    </Rule>
+    <Rule id="67">
+      <ConditionOccurrenceLink link="17678665886801159"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="23">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678738374251576"/>
+      <ActionLink link="17678763510662221"/>
+    </Rule>
+    <Rule id="35">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17678797624674012"/>
+      <ActionOccurrenceLink link="17678802421764887"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="29">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17678797624694014"/>
+      <ConditionOccurrenceLink link="17678789982422744"/>
+      <ActionLink link="17678786920732560"/>
+      <ActionLink link="17678763510662221"/>
+    </Rule>
+    <Rule id="36">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17678797624694014"/>
+      <ConditionOccurrenceLink link="17678789982442746"/>
+      <ActionOccurrenceLink link="17678823596555790"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="146">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17678798153774019"/>
+      <ConditionOccurrenceLink link="17766096753739232"/>
+      <ActionOccurrenceLink link="17766758704776997"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="147">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17678798153774019"/>
+      <ActionLink link="17678786928172561"/>
+      <ActionLink link="17678763510662221"/>
+      <ConditionOccurrenceLink link="17766096753759234"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+    </Rule>
+    <Rule id="148">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17678798153774019"/>
+      <ConditionOccurrenceLink link="17766138520061900"/>
+      <ActionOccurrenceLink link="17766778405850826"/>
+    </Rule>
+    <Rule id="39">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17678799264704022"/>
+      <ActionOccurrenceLink link="17678800308654448"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="25">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739010161584"/>
+      <ActionLink link="17678763510662221"/>
+    </Rule>
+    <Rule id="40">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ActionOccurrenceLink link="17679445800287066"/>
+    </Rule>
+    <Rule id="41">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="42">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739023261587"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="43">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739024751588"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="44">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739029081589"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="45">
+      <ConditionOccurrenceLink link="17678666260741162"/>
+      <ConditionOccurrenceLink link="17678739561701598"/>
+      <ActionOccurrenceLink link="17678756350712060"/>
+      <ActionOccurrenceLink link="17679445859987070"/>
+    </Rule>
+    <Rule id="69">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678738374251576"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+    </Rule>
+    <Rule id="70">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678738374251576"/>
+      <ActionLink link="17679490878180216"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+    </Rule>
+    <Rule id="71">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+    </Rule>
+    <Rule id="72">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739007311583"/>
+      <ActionLink link="17679490878180216"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+    </Rule>
+    <Rule id="73">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739010161584"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+    </Rule>
+    <Rule id="74">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739010161584"/>
+      <ActionLink link="17679490878180216"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+    </Rule>
+    <Rule id="54">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+      <ActionLink link="17678786935172562"/>
+      <ActionOccurrenceLink link="17679451836818845"/>
+    </Rule>
+    <Rule id="75">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739020351585"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="56">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ActionOccurrenceLink link="17679451891798849"/>
+      <ActionLink link="17678763510662221"/>
+      <ConditionOccurrenceLink link="17679454010289508"/>
+    </Rule>
+    <Rule id="57">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739022531586"/>
+      <ConditionOccurrenceLink link="17679454010309510"/>
+      <ActionOccurrenceLink link="17679451836818845"/>
+    </Rule>
+    <Rule id="76">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739023261587"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+    </Rule>
+    <Rule id="77">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739023261587"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="78">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739024751588"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+    </Rule>
+    <Rule id="79">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739024751588"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="80">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739029081589"/>
+      <ActionOccurrenceLink link="17678758949952065"/>
+      <ConditionOccurrenceLink link="17679449952538225"/>
+    </Rule>
+    <Rule id="81">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739029081589"/>
+      <ConditionOccurrenceLink link="17679449952558227"/>
+      <ActionLink link="17679490878180216"/>
+    </Rule>
+    <Rule id="82">
+      <ConditionOccurrenceLink link="17678666278461163"/>
+      <ConditionOccurrenceLink link="17678739561701598"/>
+      <ActionOccurrenceLink link="17678756350712060"/>
+    </Rule>
+    <Rule id="68">
+      <ConditionOccurrenceLink link="17678666415501166"/>
+      <ActionOccurrenceLink link="17679491526740584"/>
+    </Rule>
+  </Rules>
+  <Title language="German" value="Hier doppel-klicken um den Titel für die Entscheidungstabelle einzugeben"/>
+  <UrlsOut>
+    <Url title="Ordner" url="file:///./"/>
+  </UrlsOut>
+  <SourceCode codeLanguage="Groovy" sourceCodeType="Prolog" value="import java.io.IOException;&lt;br/&gt;import java.nio.file.Files&lt;br/&gt;import java.nio.file.Paths&lt;br/&gt;import java.net.MalformedURLException;&lt;br/&gt;import java.net.URISyntaxException;&lt;br/&gt;import java.net.URL;&lt;br/&gt;import java.security.GeneralSecurityException;&lt;br/&gt;import java.util.Arrays;&lt;br/&gt;import java.util.HashMap;&lt;br/&gt;import java.util.List;&lt;br/&gt;import java.util.Vector;&lt;br/&gt;import java.util.Stack;&lt;br/&gt;&lt;br/&gt;import de.qfs.apps.qftest.extensions.qftest.TestRunListener;&lt;br/&gt;import de.qfs.apps.qftest.extensions.qftest.TestRunEvent;&lt;br/&gt;import de.qfs.apps.qftest.extensions.qftest.TestSuiteNode;&lt;br/&gt;import de.qfs.apps.qftest.run.AbstractRunContext;&lt;br/&gt;import de.qfs.apps.qftest.shared.exceptions.TestException;&lt;br/&gt;import de.qfs.apps.qftest.step.AbstractStep;&lt;br/&gt;&lt;br/&gt;import org.apache.olingo.odata2.api.exception.ODataException;&lt;br/&gt;&lt;br/&gt;import com.neotys.rest.design.client.DesignAPIClient;&lt;br/&gt;import com.neotys.rest.design.client.DesignAPIClientFactory;&lt;br/&gt;import com.neotys.rest.design.model.CloseProjectParams.CloseProjectParamsBuilder;&lt;br/&gt;import com.neotys.rest.design.model.ContainsUserPathParams.ContainsUserPathParamsBuilder;&lt;br/&gt;import com.neotys.rest.design.model.CreateProjectParams.CreateProjectParamsBuilder;&lt;br/&gt;import com.neotys.rest.design.model.IsProjectOpenParams.IsProjectOpenParamsBuilder;&lt;br/&gt;import com.neotys.rest.design.model.OpenProjectParams.OpenProjectParamsBuilder;&lt;br/&gt;import com.neotys.rest.design.model.RecorderSettings;&lt;br/&gt;import com.neotys.rest.design.model.RecordingStatus;&lt;br/&gt;import com.neotys.rest.design.model.SetBaseContainerParams;&lt;br/&gt;import com.neotys.rest.design.model.SetBaseContainerParams.BaseContainer;&lt;br/&gt;import com.neotys.rest.design.model.SetContainerParams;&lt;br/&gt;import com.neotys.rest.design.model.StartRecordingParams.StartRecordingBuilder;&lt;br/&gt;import com.neotys.rest.design.model.StopRecordingParams.StopRecordingBuilder;&lt;br/&gt;import com.neotys.rest.design.model.UpdateUserPathParams;&lt;br/&gt;import com.neotys.rest.error.NeotysAPIException;&lt;br/&gt;import com.neotys.rest.runtime.model.Status;&lt;br/&gt;&lt;br/&gt;//  Prüfung, ob bereits ein Listener des Typs registriert ist.&lt;br/&gt;try&lt;br/&gt;{&lt;br/&gt;  if(null != __NEOLOADRECORDINGLISTENER__)&lt;br/&gt;  { //  In diesem Fall wurde bereits ein Listner registriert, der zu löschen ist.&lt;br/&gt;    rc.removeTestRunListener(__NEOLOADRECORDINGLISTENER__)&lt;br/&gt;    __NEOLOADRECORDINGLISTENER__ = null&lt;br/&gt;  }&lt;br/&gt;}&lt;br/&gt;catch(Exception e) {  /* Keine Aktion erforderlich, da dieser Block beim ersten Aufruf erwartet wird. */ }&lt;br/&gt;&lt;br/&gt;//  Initialisierung und Registrierung einer neuen Instanz des Listeners&lt;br/&gt;__NEOLOADRECORDINGLISTENER__ = new NeoloadRecordingListener(rc.context, rc.getStr(&quot;strNeoloadController&quot;), rc.getInt(&quot;iPort&quot;), rc.getStr(&quot;strAPIKey&quot;));&lt;br/&gt;__NEOLOADRECORDINGLISTENER__.setProjectParameters(rc.getStr(&quot;strNeoloadProjectMode&quot;), rc.getStr(&quot;strNeoloadProjectPath&quot;), rc.getStr(&quot;strNeoloadProjectName&quot;))&lt;br/&gt;__NEOLOADRECORDINGLISTENER__.setRecordingOptions(rc.getBool(&quot;bProtocolWebSocket&quot;).booleanValue(), rc.getBool(&quot;bProtocolAdobeRTMP&quot;).booleanValue(), rc.getBool(&quot;bProtocolHTTP2&quot;).booleanValue())&lt;br/&gt;__NEOLOADRECORDINGLISTENER__.setDebugLogging(rc.expand(&quot;\${default:debug:false}&quot;).equals(&quot;true&quot;))&lt;br/&gt;rc.addTestRunListener(__NEOLOADRECORDINGLISTENER__);&lt;br/&gt;&lt;br/&gt;public class NeoloadRecordingListener implements TestRunListener&lt;br/&gt;{&lt;br/&gt;  private int borderWaitForReady = 50&lt;br/&gt;  protected AbstractRunContext rc&lt;br/&gt;  protected URL xUrl = null&lt;br/&gt;  private String strAPIKey&lt;br/&gt;  private DesignAPIClient xClient = null&lt;br/&gt;  private String strNeoloadProjectMode = &quot;CURRENT&quot;&lt;br/&gt;  private String strNeoloadProjectPath = &quot;&quot;&lt;br/&gt;  private String strNeoloadProjectName = &quot;&quot;&lt;br/&gt;  private boolean semaphorRecordingReady = false&lt;br/&gt;  private boolean semaphorOpenProject = false&lt;br/&gt;  private boolean recordingProtocolWebSocket = true&lt;br/&gt;  private boolean recordingProtocolAdobeRTMP = false&lt;br/&gt;  private boolean recordingProtocolHTTP2 = true&lt;br/&gt;  private Stack&lt;String&gt; containerStack&lt;br/&gt;  private int counterWaitForReady = 0&lt;br/&gt;&lt;br/&gt;  protected boolean semaphorDebug = false&lt;br/&gt;&lt;br/&gt;  public NeoloadRecordingListener(AbstractRunContext rc, String neoloadHost, int neoloadPort, String apiKey)&lt;br/&gt;  {&lt;br/&gt;        this.rc = rc&lt;br/&gt;        this.strAPIKey = apiKey&lt;br/&gt;        this.xUrl = new URL(&quot;http&quot;, neoloadHost, neoloadPort, &quot;/Design/v1/Service.svc/&quot;)&lt;br/&gt;        this.containerStack = []&lt;br/&gt;        this.semaphorRecordingReady = true&lt;br/&gt;    }&lt;br/&gt;&lt;br/&gt;    public void performActions(String eventProcedure, TestRunEvent event) {&lt;br/&gt;        Status status&lt;br/&gt;        RecordingStatus recordingStatus"/>
+  <SourceCode codeLanguage="Groovy" sourceCodeType="Epilog" value="  }&lt;br/&gt;&lt;br/&gt;  public void setProjectParameters(String mode, String path, String name)&lt;br/&gt;  {&lt;br/&gt;    this.strNeoloadProjectMode = mode&lt;br/&gt;    this.strNeoloadProjectPath = path&lt;br/&gt;    this.strNeoloadProjectName = name&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void setDebugLogging(boolean value)&lt;br/&gt;  {&lt;br/&gt;    this.semaphorDebug = value&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void setRecordingOptions(boolean protocolWebSocket, boolean protocolAdobeRTMP, boolean protocolHTTP2)&lt;br/&gt;  {&lt;br/&gt;    this.setRecordingOptionProtocolWebSocket(protocolWebSocket)&lt;br/&gt;    this.setRecordingOptionProtocolAdobeRTMP(protocolAdobeRTMP)&lt;br/&gt;    this.setRecordingOptionProtocolHTTP2(protocolHTTP2)&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void setRecordingOptionProtocolWebSocket(boolean value)&lt;br/&gt;  {&lt;br/&gt;    this.recordingProtocolWebSocket = value&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void setRecordingOptionProtocolAdobeRTMP(boolean value)&lt;br/&gt;  {&lt;br/&gt;    this.recordingProtocolAdobeRTMP = value&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void setRecordingOptionProtocolHTTP2(boolean value)&lt;br/&gt;  {&lt;br/&gt;    this.recordingProtocolHTTP2 = value&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void nodeEntered(TestRunEvent event) {&lt;br/&gt;   this.performActions(&quot;nodeEntered&quot;, event)&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void nodeExited(TestRunEvent event) {&lt;br/&gt;    this.performActions(&quot;nodeExited&quot;, event)&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void problemOccurred(TestRunEvent event) {&lt;br/&gt;    this.performActions(&quot;problemOccurred&quot;, event)&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void runStarted(TestRunEvent event) {&lt;br/&gt;    this.performActions(&quot;runStarted&quot;, event)&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  public void runStopped(TestRunEvent event) {&lt;br/&gt;    this.performActions(&quot;runStopped&quot;, event)&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  protected DesignAPIClient getClient()&lt;br/&gt;  {&lt;br/&gt;    if(null == this.xClient)&lt;br/&gt;    {&lt;br/&gt;      if(this.strAPIKey?.length() &gt; 0)&lt;br/&gt;        this.xClient = DesignAPIClientFactory.newClient(this.xUrl.toString(), this.strAPIKey)&lt;br/&gt;      else&lt;br/&gt;        this.xClient = DesignAPIClientFactory.newClient(this.xUrl.toString())&lt;br/&gt;    }&lt;br/&gt;    return this.xClient&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  /**&lt;br/&gt;   *  \brief    Mit dieser Methode kann ein NeoLoad-Projekt angelegt werden.&lt;br/&gt;   *&lt;br/&gt;   *  Mit dieser Methode wird ein NeoLoad-Projekt angelegt, sofern der Dateiname&lt;br/&gt;   *  und das Verzeichnis gültig ist.&lt;br/&gt;   *&lt;br/&gt;   *  \param    projectName             In dem Parameter ist der Name des&lt;br/&gt;   *                                    Projekts anzugeben.&lt;br/&gt;   *  \param    directoryPath           In dem Parameter kann optional ein&lt;br/&gt;   *                                    Verzeichnis übergeben werden, in dem das&lt;br/&gt;   *                                    Projekt angelegt werden soll.&lt;br/&gt;&lt;br/&gt;   *                                    Wird in diesem Parameter der Wert&lt;br/&gt;   *                                    &lt;code&gt;null&lt;/code&gt; übergeben, dann wird&lt;br/&gt;   *                                    das Projekt in dem Standardverzeichnis&lt;br/&gt;   *                                    aus den Einstellungen von NeoLoad&lt;br/&gt;   *                                    angelegt.&lt;br/&gt;   *  \param    overwrite               In dem Parameter wird entschieden, ob&lt;br/&gt;   *                                    ein bereits vorhandenes Projekt&lt;br/&gt;   *                                    überschrieben werden soll oder nicht.&lt;br/&gt;   *&lt;br/&gt;   *  \throws   Exception               Für den Fall, dass eine Verarbeitung&lt;br/&gt;   *                                    nicht möglich ist, wird eine Exception&lt;br/&gt;   *                                    weitergereicht, die vom Aufrufer zu&lt;br/&gt;   *                                    behandeln ist, da innerhalb dieser&lt;br/&gt;   *                                    Methode keine Maßnahme ergiffen werden&lt;br/&gt;   *                                    kann, die in jedem Fall geeignet ist.&lt;br/&gt;   */&lt;br/&gt;  public void createProject(String projectName, String directoryPath, boolean overwrite) throws Exception&lt;br/&gt;  {&lt;br/&gt;    CreateProjectParamsBuilder params = new CreateProjectParamsBuilder()&lt;br/&gt;                                                      .name(projectName)&lt;br/&gt;                                                      .overwrite(overwrite);&lt;br/&gt;    if(null != directoryPath)&lt;br/&gt;      params = params.directoryPath(directoryPath);&lt;br/&gt;&lt;br/&gt;    this.getClient().createProject(params.build());&lt;br/&gt;    this.semaphorOpenProject = true&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  /**&lt;br/&gt;   *  \brief    Methode zum Öffnen eines NeoLoad-Projekts.&lt;br/&gt;   *&lt;br/&gt;   *  Mit dieser Methode wird ein NeoLoad-Projekt geöffnet, das bereits&lt;br/&gt;   *  existiert.&lt;br/&gt;   *&lt;br/&gt;   *  \param    filePath                In dem Parameter muss der voll&lt;br/&gt;   *                                    qualifizierte Pfad zur .nlp-Datei&lt;br/&gt;   *                                    übergeben werden, damit das&lt;br/&gt;   *                                    entsprechende Projekt geöffnet werden&lt;br/&gt;   *                                    kann.&lt;br/&gt;   *&lt;br/&gt;   *  \throws   Exception               Für den Fall, dass eine Verarbeitung&lt;br/&gt;   *                                    nicht möglich ist, wird eine Exception&lt;br/&gt;   *                                    weitergereicht, die vom Aufrufer zu&lt;br/&gt;   *                                    behandeln ist, da innerhalb dieser&lt;br/&gt;   *                                    Methode keine Maßnahme ergiffen werden&lt;br/&gt;   *                                    kann, die in jedem Fall geeignet ist.&lt;br/&gt;   */&lt;br/&gt;  public void openProject(String filePath) throws Exception&lt;br/&gt;  {&lt;br/&gt;    this.getClient().openProject( new OpenProjectParamsBuilder().filePath(filePath)&lt;br/&gt;                                                                  .build()            );&lt;br/&gt;    this.semaphorOpenProject = true&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  /**&lt;br/&gt;   *  \brief    Methode setzt den Hauptcontainer für die Aufnahme.&lt;br/&gt;   *&lt;br/&gt;   *  In einem User Path gibt es die drei Hauptcontainer Init, Actions und&lt;br/&gt;   *  End. Mit dieser Methode kann der Aufrufer den Hauptcontainer bestimmen,&lt;br/&gt;   *  in dem die folgenden Requests aufgenommen werden sollen.&lt;br/&gt;   *&lt;br/&gt;   *  \param    baseContainer           In diesem Parameter ist der Hauptcontainer&lt;br/&gt;   *                                    zu übergeben, in dem die folgenden&lt;br/&gt;   *                                    Requests aufgenommen werden sollen.&lt;br/&gt;   *&lt;br/&gt;   *  \throws   Exception               Für den Fall, dass eine Verarbeitung&lt;br/&gt;   *                                    nicht möglich ist, wird eine Exception&lt;br/&gt;   *                                    weitergereicht, die vom Aufrufer zu&lt;br/&gt;   *                                    behandeln ist, da innerhalb dieser&lt;br/&gt;   *                                    Methode keine Maßnahme ergiffen werden&lt;br/&gt;   *                                    kann, die in jedem Fall geeignet ist.&lt;br/&gt;   *&lt;br/&gt;   */&lt;br/&gt;  public void setBaseContainer(BaseContainer baseContainer) throws Exception&lt;br/&gt;  {&lt;br/&gt;    this.getClient().setBaseContainer(new SetBaseContainerParams(baseContainer));&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  /**&lt;br/&gt;   *  \brief    Methode zum Start einer Aufnahme.&lt;br/&gt;   *&lt;br/&gt;   *  Mit dieser Methode wird eine Aufzeichnung in Proxy-Modus gestartet. Die&lt;br/&gt;   *  Methode kommt auch erst zurück, wenn die Aufzeichnung gestartet ist.&lt;br/&gt;   *&lt;br/&gt;   *  \note     Die Methode unterstützt ausschließlich den Proxy-Modus. Der&lt;br/&gt;   *            Tunnel-Modus kann über das Design API von NeoLoad nicht&lt;br/&gt;   *            angesprochen werden.&lt;br/&gt;   *&lt;br/&gt;   *  \param    userPath                In dem Parameter ist der Name des&lt;br/&gt;   *                                    UserPath zu übergeben, unter dem die&lt;br/&gt;   *                                    Aufnahme angelegt werden soll.&lt;br/&gt;&lt;br/&gt;   *                                    Falls in dem Parameter &lt;code&gt;null&lt;/code&gt;&lt;br/&gt;   *                                    übergeben wird, wird die Bezeichnung&lt;br/&gt;   *                                    &lt;code&gt;UserPath&lt;/code&gt; verwendet.&lt;br/&gt;   *  \param    baseContainer           In dem Parameter kann festgelegt werden,&lt;br/&gt;   *                                    in welchem der drei Hauptcontainer die&lt;br/&gt;   *                                    Aufnahme gespeichert werden soll. Zur&lt;br/&gt;   *                                    Auswahl stehen Init, Actions oder End.&lt;br/&gt;&lt;br/&gt;   *                                    Wenn in dem Parameter &lt;code&gt;null&lt;/code&gt;&lt;br/&gt;   *                                    übergeben wird, wird per Default der&lt;br/&gt;   *                                    Container &lt;code&gt;Actions&lt;/code&gt; verwendet.&lt;br/&gt;   *  \param    protocolWebSocket       In dem Parameter wird definiert, ob bei&lt;br/&gt;   *                                    der Aufnahme das Protokoll WebSocket&lt;br/&gt;   *                                    aktiv sein soll.&lt;br/&gt;&lt;br/&gt;   *                                    Der Defaultwert von Seiten NeoLoad ist&lt;br/&gt;   *                                    &lt;code&gt;true&lt;/code&gt;.&lt;br/&gt;   *  \param    protocolAdobeRTMP       In dem Parameter wird definiert, ob bei&lt;br/&gt;   *                                    der Aufnahme das Protokoll AdobeRTMP&lt;br/&gt;   *                                    aktiv sein soll.&lt;br/&gt;&lt;br/&gt;   *                                    Der Defaultwert von Seiten NeoLoad ist&lt;br/&gt;   *                                    &lt;code&gt;false&lt;/code&gt;.&lt;br/&gt;   *  \param    protocolHTTP2           In dem Parameter wird definiert, ob bei&lt;br/&gt;   *                                    der Aufnahme das Protokoll HTTP2&lt;br/&gt;   *                                    aktiv sein soll.&lt;br/&gt;&lt;br/&gt;   *                                    Der Defaultwert von Seiten NeoLoad ist&lt;br/&gt;   *                                    &lt;code&gt;true&lt;/code&gt;.&lt;br/&gt;   *  \param    userAgent               In dem Parameter kann Aufrufer optional&lt;br/&gt;   *                                    einen String übergeben, der für den&lt;br/&gt;   *                                    User Agent steht.&lt;br/&gt;   *&lt;br/&gt;   *  \throws   Exception               Für den Fall, dass eine Verarbeitung&lt;br/&gt;   *                                    nicht möglich ist, wird eine Exception&lt;br/&gt;   *                                    weitergereicht, die vom Aufrufer zu&lt;br/&gt;   *                                    behandeln ist, da innerhalb dieser&lt;br/&gt;   *                                    Methode keine Maßnahme ergiffen werden&lt;br/&gt;   *                                    kann, die in jedem Fall geeignet ist.&lt;br/&gt;   */&lt;br/&gt;  public void startRecording( String userPath,&lt;br/&gt;                              BaseContainer baseContainer,&lt;br/&gt;                              boolean protocolWebSocket,&lt;br/&gt;                              boolean protocolAdobeRTMP,&lt;br/&gt;                              boolean protocolHTTP2,&lt;br/&gt;                              String userAgent) throws Exception&lt;br/&gt;  {&lt;br/&gt;    StartRecordingBuilder builder = new StartRecordingBuilder();&lt;br/&gt;&lt;br/&gt;    if(null != userPath)&lt;br/&gt;      builder = builder.virtualUser(userPath);&lt;br/&gt;    if(null != baseContainer)&lt;br/&gt;      builder = builder.recordInStep(baseContainer);&lt;br/&gt;    if(null != userAgent)&lt;br/&gt;      builder = builder.userAgent(userAgent);&lt;br/&gt;&lt;br/&gt;    this.getClient().startRecording( builder.isWebSocketProtocol(protocolWebSocket)&lt;br/&gt;                                              .isAdobeRTMPProtocol(protocolAdobeRTMP)&lt;br/&gt;                                              .isHTTP2Protocol(protocolHTTP2)&lt;br/&gt;                                              .build());&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  /**&lt;br/&gt;   *  \brief    Die Methode stoppt die Aufnahme.&lt;br/&gt;   *&lt;br/&gt;   *  Mit dieser Methode kann eine laufende Aufnahme gestoppt werden und es wird&lt;br/&gt;   *  der Post-Recording-Wizard durchlaufen.&lt;br/&gt;   *&lt;br/&gt;   *  \note     Da es in dem Design API keinen gesichterten Status gibt, mit der&lt;br/&gt;   *            eine laufende Aufnahme signalisiert, wird das Kommando ohne&lt;br/&gt;   *            Vorprüfung abgesetzt. Sollte z.B. keine Aufnahme laufen, dann&lt;br/&gt;   *            wird diese Methode eine Exception werfen, die von NeoLoad&lt;br/&gt;   *            kommt.&lt;br/&gt;   *&lt;br/&gt;   *  \param    frameworkParameterSearch  In dem Parameter ist anzugeben, ob auf&lt;br/&gt;   *                                    die Aufnahme die Framework-Parameter&lt;br/&gt;   *                                    angewendet werden sollen. Dadurch werden&lt;br/&gt;   *                                    bestimmte Requests mit variablen&lt;br/&gt;   *                                    Ausdrücken versehen.&lt;br/&gt;&lt;br/&gt;   *                                    Diese Einstellung ist mit Vorsicht zu&lt;br/&gt;   *                                    verwenden, da die Framework-Parameter&lt;br/&gt;   *                                    verwendet werden, die in der lokalen&lt;br/&gt;   *                                    NeoLoad-Installation hinterlegt sind.&lt;br/&gt;   *                                    Diese können von den Standard-Einstellungen&lt;br/&gt;   *                                    stark abweichen und von daher sollte&lt;br/&gt;   *                                    im Zweifel der Parameter auf&lt;br/&gt;   *                                    &lt;code&gt;false&lt;/code&gt; gesetzt werden.&lt;br/&gt;   *  \param    genericParameterSearch  Mit dem Parameter kann im&lt;br/&gt;   *                                    Post-Recording-Process nach dynamischen&lt;br/&gt;   *                                    Parametern gesucht werden.&lt;br/&gt;&lt;br/&gt;   *                                    In der Regel ist hier der Wert&lt;br/&gt;   *                                    &lt;code&gt;false&lt;/code&gt; zu setzen, da es&lt;br/&gt;   *                                    sicherer ist, eine Aufnahme später&lt;br/&gt;   *                                    manuell nachzubearbeiten.&lt;br/&gt;   *  \param    updateUserPathParams    In dem Parameter lassen sich&lt;br/&gt;   *                                    Einstellungen für ein mögliches User&lt;br/&gt;   *                                    Path Update übergeben. Diese Option&lt;br/&gt;   *                                    ist dann von Interesse, wenn eine&lt;br/&gt;   *                                    Aufnahme für einen User Path erfolgen&lt;br/&gt;   *                                    soll, der bereits besteht. In diesem&lt;br/&gt;   *                                    Fall lassen sich bestehendes Skript und&lt;br/&gt;   *                                    neue Aufnahme zusammenführen.&lt;br/&gt;&lt;br/&gt;   *                                    Wenn dieses nicht gewünscht ist, dann&lt;br/&gt;   *                                    ist in dem Parameter der Wert&lt;br/&gt;   *                                    &lt;code&gt;null&lt;/code&gt; zu übergeben.&lt;br/&gt;   *  \throws   Exception               Für den Fall, dass eine Verarbeitung&lt;br/&gt;   *                                    nicht möglich ist, wird eine Exception&lt;br/&gt;   *                                    weitergereicht, die vom Aufrufer zu&lt;br/&gt;   *                                    behandeln ist, da innerhalb dieser&lt;br/&gt;   *                                    Methode keine Maßnahme ergiffen werden&lt;br/&gt;   *                                    kann, die in jedem Fall geeignet ist.&lt;br/&gt;   */&lt;br/&gt;  public void stopRecording(  boolean               frameworkParameterSearch,&lt;br/&gt;                              boolean               genericParameterSearch,&lt;br/&gt;                              UpdateUserPathParams  updateUserPathParams        ) throws Exception&lt;br/&gt;  {&lt;br/&gt;    StopRecordingBuilder builder = new StopRecordingBuilder();&lt;br/&gt;&lt;br/&gt;    if(null != updateUserPathParams)&lt;br/&gt;      builder = builder.updateParams(updateUserPathParams);&lt;br/&gt;&lt;br/&gt;    this.getClient().stopRecording(  builder.frameworkParameterSearch(frameworkParameterSearch)&lt;br/&gt;                                              .genericParameterSearch(genericParameterSearch)&lt;br/&gt;                                              .build()                                              );&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  /**&lt;br/&gt;   *  \brief    Mit der Methode kann während einer Aufnahme eine neue&lt;br/&gt;   *            Transaktion erstellt werden.&lt;br/&gt;   *&lt;br/&gt;   *  Transaktionen dienen in einem User Path zur Gliederung der Requests.&lt;br/&gt;   *  Wenn eine Transaktion definert wird, dann werden die folgenden Requests&lt;br/&gt;   *  unterhalb dieser Transaktion angeordnet.&lt;br/&gt;   *&lt;br/&gt;   *  Der Name einer Transaktion muss innerhalb eines User Path eindeutig sein.&lt;br/&gt;   *  Sollte ein Name übergeben werden, der bereits existiert, dann ergänzt&lt;br/&gt;   *  NeoLoad ein Suffix aus Unterstrich und Zahl, um den Namen eindeutig&lt;br/&gt;   *  zu machen.&lt;br/&gt;   *&lt;br/&gt;   *  \note     Innerhalb des Listeners wird diese Methode von nodeEntered(TestRunEvent)&lt;br/&gt;   *            aufgerufen, da in Abhängigkeit der von Testsequenzen und&lt;br/&gt;   *            Testfallknoten automatisch Transaktionen gesetzt werden.&lt;br/&gt;   *            Die Namen dieser Transaktion sind generiert auf Basis der&lt;br/&gt;   *            entsprechenden Knoten.&lt;br/&gt;   *&lt;br/&gt;   *  \param    name                    In dem Parameter ist der Name für die&lt;br/&gt;   *                                    Transaktion zu übergeben.&lt;br/&gt;   *&lt;br/&gt;   *  \throws   Exception               Für den Fall, dass eine Verarbeitung&lt;br/&gt;   *                                    nicht möglich ist, wird eine Exception&lt;br/&gt;   *                                    weitergereicht, die vom Aufrufer zu&lt;br/&gt;   *                                    behandeln ist, da innerhalb dieser&lt;br/&gt;   *                                    Methode keine Maßnahme ergiffen werden&lt;br/&gt;   *                                    kann, die in jedem Fall geeignet ist.&lt;br/&gt;   *&lt;br/&gt;   */&lt;br/&gt;  public void setContainer(String name) throws Exception&lt;br/&gt;  {&lt;br/&gt;    this.getClient().setContainer(new SetContainerParams(name))&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  /**&lt;br/&gt;   *  \brief    Methode zum Speichern des aktuell geöffneten Projekts.&lt;br/&gt;   *&lt;br/&gt;   *  Mit dieser Methode kann das aktuelle Projekt gespeichert werden. Es wird&lt;br/&gt;   *  unter dem Pfad gespeichert, unter dem es angelegt bzw. geöffnet wurde.&lt;br/&gt;   *&lt;br/&gt;   *  \throws   Exception               Für den Fall, dass eine Verarbeitung&lt;br/&gt;   *                                    nicht möglich ist, wird eine Exception&lt;br/&gt;   *                                    weitergereicht, die vom Aufrufer zu&lt;br/&gt;   *                                    behandeln ist, da innerhalb dieser&lt;br/&gt;   *                                    Methode keine Maßnahme ergiffen werden&lt;br/&gt;   *                                    kann, die in jedem Fall geeignet ist.&lt;br/&gt;   */&lt;br/&gt;  public void saveProject() throws Exception&lt;br/&gt;  {&lt;br/&gt;    this.getClient().saveProject();&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;  /**&lt;br/&gt;   *  \brief    Methode zum Schließen eines Projekts&lt;br/&gt;   *&lt;br/&gt;   *  Mit dieser Methode kann das aktuell geöffnete Projekt geschlossen werden.&lt;br/&gt;   *&lt;br/&gt;   *  \param    save                    Mit dem Parameter kann der Aufrufer&lt;br/&gt;   *                                    steuern, ob das aktuelle Projekt vor&lt;br/&gt;   *                                    dem Schließen gespeichert werden soll.&lt;br/&gt;   *                                    &lt;br/&gt; Wenn der Wert &lt;code&gt;true&lt;/code&gt;&lt;br/&gt;   *                                    übergeben wird, dann wird erst nach dem&lt;br/&gt;   *                                    Speichern des Projekts dieses&lt;br/&gt;   *                                    geschlossen, damit keine Änderungen&lt;br/&gt;   *                                    verloren gehen.&lt;br/&gt;   *  \param    forceStop               Mit dem Parameter kann der Aufrufer ein&lt;br/&gt;   *                                    Schließen des Projekts erzwingen. Das&lt;br/&gt;   *                                    bedeutet, dass eventuelle Tests oder&lt;br/&gt;   *                                    Aufnahmen gestoppt werden.&lt;br/&gt;&lt;br/&gt;   *                                    Der Defaultwert in Bezug auf das API&lt;br/&gt;   *                                    ist &lt;code&gt;false&lt;/code&gt;.&lt;br/&gt;   *&lt;br/&gt;   *  \throws   Exception               Für den Fall, dass eine Verarbeitung&lt;br/&gt;   *                                    nicht möglich ist, wird eine Exception&lt;br/&gt;   *                                    weitergereicht, die vom Aufrufer zu&lt;br/&gt;   *                                    behandeln ist, da innerhalb dieser&lt;br/&gt;   *                                    Methode keine Maßnahme ergiffen werden&lt;br/&gt;   *                                    kann, die in jedem Fall geeignet ist.&lt;br/&gt;   */&lt;br/&gt;  public void closeProject(boolean save, boolean forceStop) throws Exception&lt;br/&gt;  {&lt;br/&gt;    this.getClient().closeProject(  new CloseProjectParamsBuilder()&lt;br/&gt;                                                      .forceStop(forceStop)&lt;br/&gt;                                                      .save(save)&lt;br/&gt;                                                      .build()          )&lt;br/&gt;    this.semaphorOpenProject = false&lt;br/&gt;  }&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;}"/>
+  <SourceCode codeLanguage="Groovy" sourceCodeType="Trace" value="if (this.semaphorDebug)&lt;br/&gt;    this.rc.logWarning(&quot;&quot;&quot;$$etname - Regel $$Rule / $$Rules (Trace) : event = $eventProcedure ; json = ${event.asJsonValue().toString()}&quot;&quot;&quot;)"/>
+</LFET>

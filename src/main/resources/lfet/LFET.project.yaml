@@ -1,0 +1,10 @@
+LFET:
+  ide.default: Groovy
+  ide.Groovy:
+    Enabled: true
+    Package: '""'
+    Source:
+      Encoding: UTF-8
+      Path: ${project.root}/../../groovy/${package}
+    Interface.Enabled: false
+    BracketsNewLine: false

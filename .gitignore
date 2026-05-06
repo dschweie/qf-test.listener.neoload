@@ -1,4 +1,6 @@
 *.bak
 .vscode/**
 neoload/google_gruyere/results/result_*/**
+**/*.$bak.zip
+**/*.groovy
 
